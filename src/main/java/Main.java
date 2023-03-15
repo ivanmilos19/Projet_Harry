@@ -3,14 +3,9 @@ public  class Main {
 
         //SortingHat sortingHat = new SortingHat();
         //Wand wand = new Wand();
-        Wizard wizard = new Wizard();
-        wizard.attack();
-
-        
-
-
-
+        //Wizard wizard = new Wizard();
+        GameLogic game = new GameLogic();
+        Enemy enemy = new Enemy();
+        game.battle(enemy);
     }
-
-
 }

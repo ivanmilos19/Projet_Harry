@@ -1,28 +1,22 @@
 import lombok.Data;
 
-import java.util.Scanner;
-
 @Data
-public class Enemy extends AbstractEnnemy {
+public class Enemy extends AbstractEnemy {
     int baseHP = 100;
-    int currentHP = 100;
+    int currentennemyHP = 100;
+
 
     @Override
     public void attack() {
-        while (currentHP > 0) {
-            String newLine = System.getProperty("line.separator");
-            Scanner scanner = new Scanner(System.in);
+        while (currentennemyHP > 0) {
+            System.out.println(currentHP + "/" + baseHP);
+            int damage = 10;
+            currentennemyHP -= damage;
 
-            System.out.println( currentHP + "/" + baseHP);
-
-                int damage = 10;
-                System.out.println(newLine + "You attack the enemy for " + damage + " damage!");
-                currentHP -= damage;
-
-                if (currentHP <= 0) {
-                    System.out.println("You have been defeated!");
-                    break;
-                }
+            if (currentennemyHP <= 0) {
+                System.out.println("Ennemy has been defeated!");
+                break;
             }
+        }
     }
 }
