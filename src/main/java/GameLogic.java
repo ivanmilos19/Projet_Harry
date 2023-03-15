@@ -1,32 +1,34 @@
+import lombok.Data;
+
 import java.util.Scanner;
 
+@Data
 public class GameLogic {
-    int baseHP = 100;
-    int currentHP = 100;
 
-    int currentennemyHP =100;
-
-    public  void battle(Enemy enemy){
-        while (currentHP > 0) {
-            String newLine = System.getProperty("line.separator");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println(newLine + "What do you want to do?");
-            System.out.println(currentHP + "/" + baseHP);
-            System.out.println("1. Attack");
-            System.out.println("2. Defend");
-            int choice = scanner.nextInt();
-
-            if (choice == 1) {
-                int damage = 10;
-                System.out.println(newLine + "You attack the enemy for " + damage + " damage!");
-                currentennemyHP -= damage;
-                System.out.println(currentennemyHP + "/" + baseHP);
-
-                if (currentHP <= 0) {
-                    System.out.println("You have been defeated!");
-                    break;
-                }
+    public  void battle(Wizard wizard, AbstractEnemy enemy) {
+        while (true)
+        {
+            System.out.println("Start of turn");
+            System.out.println("Wizard HP " + wizard.currentHP);
+            System.out.println("Enemy HP " + enemy.currentHP);
+            if (wizard.isDead())
+            {
+                System.out.println("Game Over");
+                break;
             }
+
+            wizard.attack(enemy); // the protagonist is attacking its enemy
+
+            if (enemy.isDead())
+            {
+                System.out.println("Congrats you won");
+                break;
+            }
+
+            enemy.attack(wizard); // now the protagonist is attacked
         }
+        System.out.println("Final state");
+        System.out.println("Wizard HP " + wizard.currentHP);
+        System.out.println("Enemy HP " + enemy.currentHP);
     }
 }

@@ -1,6 +1,7 @@
 public class Boss extends AbstractEnemy{
-    @Override
-    public void attack() {
 
+    @Override
+    public int damageInflicted() {
+        return 309;
     }
 }
