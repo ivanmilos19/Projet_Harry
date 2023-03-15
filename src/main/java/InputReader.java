@@ -15,7 +15,7 @@ public class InputReader {
         return Arrays.asList(validChoices).contains(playerChoice);
     }
 
-    private void showValidOptions()
+    public void showValidOptions()
     {
         for (int i = 0; i < validChoices.length; i++) {
             System.out.println((i+1) + ": " + validChoices[i]);
