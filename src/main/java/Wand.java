@@ -1,4 +1,6 @@
 import lombok.Data;
+
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,8 +8,10 @@ import java.util.Scanner;
 public class Wand {
     private int height;
     private String size = null;
-    private String playerChoice = null;
-    private static String qualities[] = {"Power", "Consistency", "Broadness"};
+
+    Core core;
+    private static String qualities[] = {"Power", "Consistency", "Broadness" };
+    private static  Core cores[] = { Core.DRAGON_HEARTSTRING, Core.UNICORN_HAIR, Core.PHOENIX_FEATHER };
     private void determineWandSize() {
         if (height <= 165) {
             this.size = "an 8 inch";
@@ -41,21 +45,11 @@ public class Wand {
 
         String instructions = newLine + "Choose the property of your core:";
         InputReader qualityReader = new InputReader(instructions, qualities);
-        qualityReader.showValidOptions();
-
-
-
-        playerChoice = scanner.nextLine();
-        Core core = Core.valueOf(playerChoice);
-
-        switch(core) {
-            case PHOENIX_FEATHER -> System.out.println("");
-            case DRAGON_HEARTSTRING -> System.out.println("");
-            case UNICORN_HAIR -> System.out.println("");
-        }
+        String playerChoice = qualityReader.readInput();
+        int index = Arrays.asList(qualities).indexOf(playerChoice);
+        Core core = cores[index];
 
         System.out.println("You have acquired " + size + " wand with a " + core.name().toLowerCase().replace("_", " ") + " core");
-
     }
 }
 
