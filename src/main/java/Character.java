@@ -1,9 +1,8 @@
-import java.util.Scanner;
 
 public abstract class Character {
 
-    int baseHP = 100;
     int currentHP = 100;
+    int baseHP = 100;
 
     /** the character attacks the given target */
     public void attack(Character target)
@@ -12,6 +11,11 @@ public abstract class Character {
         int new_HP = target.currentHP - damage;
         if (new_HP < 0)
             new_HP = 0;
+        target.currentHP = new_HP;
+    }
+
+    public void defend(Character target) {
+        int new_HP = target.currentHP + 5;
         target.currentHP = new_HP;
     }
 

@@ -1,2 +1,2 @@
-public class Spell {
+public class Spell extends AbstractSpell{
 }

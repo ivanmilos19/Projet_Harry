@@ -10,6 +10,8 @@ public class Wand {
     private String size = null;
 
     Core core;
+
+
     private static String qualities[] = {"Power", "Consistency", "Broadness" };
     private static  Core cores[] = { Core.DRAGON_HEARTSTRING, Core.UNICORN_HAIR, Core.PHOENIX_FEATHER };
     private void determineWandSize() {
@@ -25,7 +27,9 @@ public class Wand {
 
     }
 
-    public Wand(){
+
+
+    public void Wand(){
         Scanner scanner = new Scanner(System.in);
         String newLine = System.getProperty("line.separator");
         System.out.println(newLine + "Time for you to get your wand. How tall are you ? (Write your height in centimeters)");
@@ -50,6 +54,9 @@ public class Wand {
         Core core = cores[index];
 
         System.out.println("You have acquired " + size + " wand with a " + core.name().toLowerCase().replace("_", " ") + " core");
+
+
     }
 }
+
 
