@@ -21,7 +21,7 @@ public class Wizard extends Character {
     }
     @Override
     public int damageInflicted() {
-        return 100;
+        return 34;
     }
 
 }

@@ -16,8 +16,6 @@ public class GameLogic {
     public  void battle(Wizard wizard, AbstractEnemy enemy) {
         while (true)
         {
-
-            //System.out.println( newLine + "Start of turn" + newLine);
             System.out.print(GREEN + newLine + "      Wizard HP: " + wizard.currentHP + "/" + wizard.baseHP);
             System.out.print(WHITE +  "  |  " + RED + "Enemy HP: " + enemy.currentHP + "/" + enemy.baseHP) ;
 
