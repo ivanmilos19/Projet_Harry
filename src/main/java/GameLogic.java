@@ -24,9 +24,10 @@ public class GameLogic {
         {
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.currentHP + "/" + wizard.baseHP + " ❤");
             System.out.print(WHITE_BOLD_BRIGHT +  "  |  " + RED_BOLD_BRIGHT + "Enemy HP: " + enemy.currentHP + "/" + enemy.baseHP + " ❤") ;
+            System.out.println(newLine + BLUE_BOLD_BRIGHT+ "Mana: " + wizard.currentmanaPool + "/" + wizard.manaPool + " \uD83D\uDCA7");
 
             System.out.println(RESET + newLine + newLine + "Choose an action:"+ newLine);
-            System.out.println( "1: Attack" +newLine+ "2: Defend" +newLine+ "3: Potion" );
+            System.out.println( "1: Attack" +newLine+ "2: Defend" +newLine+ "3: Potion" +newLine+ "4: Spell");
 
 
 
@@ -50,13 +51,60 @@ public class GameLogic {
             }
 
             if (playerChoice == 3) {
-                wizard.equipDamagePotion();
-                continue;
+                System.out.println(RESET + newLine + newLine + "Select a potion"+ newLine);
+                System.out.println( "1: Health Potion" +newLine+ "2: Attack buff potion" +newLine+ "3: Mana potion");
+
+                do {
+                    try {
+                        playerChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch(InputMismatchException e) {
+                        scanner.nextLine();
+                        System.out.println(YELLOW_BOLD_BRIGHT+"⚠️ Please write a valid choice.");
+                    }
+                }while(true);
+
+                if (playerChoice == 1) {
+                    wizard.useHealthPotion();
+                    continue;
+                }
+                if (playerChoice == 2 ) {
+                    wizard.equipDamagePotion();
+                    continue;
+                }
+                if (playerChoice == 3 ) {
+                    wizard.useManaPotion();
+                    continue;
+                }
+
+            }
+
+            if (playerChoice == 4) {
+
+                System.out.println(RESET + newLine + newLine + "Choose which spell to cast !"+ newLine);
+                System.out.println( "1: Wingardium leviosa" +newLine+ "2: X");
+
+                do {
+                    try {
+                        playerChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        break;
+                    } catch(InputMismatchException e) {
+                        scanner.nextLine();
+                        System.out.println(YELLOW_BOLD_BRIGHT+"⚠️ Please write a valid choice.");
+                    }
+                }while(true);
+
+                if (playerChoice == 1) {
+                    wizard.useWingardiumLeviosa(enemy);
+                }
+
             }
 
             if (enemy.isDead())
             {
-                System.out.println(newLine +"Foe defeated !");
+                System.out.println(GREEN_BOLD_BRIGHT + newLine +"Foe defeated !");
                 break;
             }
 
@@ -64,16 +112,18 @@ public class GameLogic {
 
             if (wizard.isDead())
             {
-                System.out.println(newLine + "Game Over");
+                System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
                 break;
             }
 
 
             System.out.println( WHITE_BOLD_BRIGHT + "--------------------------------------------------");
 
-        }
-        System.out.println(newLine + WHITE_BOLD_BRIGHT +"Final state");
-        System.out.print(WHITE_BOLD_BRIGHT + newLine + "HP: " + wizard.currentHP + "/" + wizard.baseHP);
 
+
+        }
+
+        System.out.println(newLine + WHITE_BOLD_BRIGHT +"Final state: " + "HP: " + wizard.currentHP + "/" + wizard.baseHP);
     }
 }
+

@@ -1,8 +1,8 @@
 
 public abstract class Character {
 
-    int currentHP = 1000;
-    int baseHP = 1000;
+    int currentHP = 250;
+    int baseHP = 250;
 
     public void maxHealth(Character target) {
         int maxHP = 100;
