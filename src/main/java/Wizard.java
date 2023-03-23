@@ -19,10 +19,11 @@ public class Wizard extends Character {
     ArrayList<Spell> sectumsempra = new ArrayList<>();
     ArrayList<Spell> expelliarmus = new ArrayList<>();
 
-
+    int currentHP = 300;
+    int baseHP = 300;;
     int manaPool = 100;
     int currentmanaPool = 100;
-    int attack_strength = 30;
+    int attack_strength = 100;
     int addingDmg = 0;
     Potion currentHealthPotion = null;
     int damagePotionTurnsLeft = 0;
@@ -49,6 +50,14 @@ public class Wizard extends Character {
 
         if (baseHP < currentHP) {
             currentHP = baseHP;
+        }
+
+    }
+
+    public void maxMana( ) {
+
+        if (manaPool < currentmanaPool) {
+            currentmanaPool = manaPool;
         }
 
     }
@@ -96,6 +105,7 @@ public class Wizard extends Character {
             currentmanaPool += potion.manaImprovement();
             // now remove the used potion
             manaPotions.remove(0);
+            maxMana();
         } else {
             System.out.println(YELLOW_BOLD_BRIGHT+" You have no mana potions left ");
         }

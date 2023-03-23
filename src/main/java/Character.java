@@ -1,16 +1,9 @@
 
 public abstract class Character {
 
-    int currentHP = 250;
-    int baseHP = 250;
+    int currentHP =0;
+    int baseHP = 0;
 
-    public void maxHealth(Character target) {
-        int maxHP = 100;
-        if (maxHP < target.currentHP) {
-            target.currentHP = maxHP;
-        }
-
-    }
 
     /** the character attacks the given target */
     public void attack(Character target)

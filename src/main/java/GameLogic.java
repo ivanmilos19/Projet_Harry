@@ -36,9 +36,9 @@ public class GameLogic {
         while (true) {
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.currentHP + "/" + wizard.baseHP + " ❤");
             System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + "Enemy HP: " + enemy.currentHP + "/" + enemy.baseHP + " ❤");
-            System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.currentmanaPool + "/" + wizard.manaPool + " \uD83D\uDCA7");
+            System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.currentmanaPool + "/" + wizard.manaPool + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
 
-            System.out.println(RESET + newLine + newLine + "Choose an action:" + newLine);
+            System.out.println(RESET + newLine + "Choose an action:" + newLine);
             System.out.println("1: Attack" + newLine + "2: Defend" + newLine + "3: Potion" + newLine + "4: Spell");
 
 
@@ -104,17 +104,18 @@ public class GameLogic {
 
         }
 
+        wizard.baseHP += 100;
         wizard.Gold += 20;
-        System.out.println("You won " + wizard.Gold + "Gold" +newLine);
+        System.out.println("You won 20 Gold! " +newLine);
 
-        System.out.println(RESET +"Do you wish to buy something in the shop ?" + newLine);
+        System.out.println(RESET +"Do you wish to buy something in Brewsings ?" + newLine);
         System.out.print("1.Yes" + newLine + "2.No" + newLine);
         inputChecker();
 
         if (playerChoice == 1) {
             System.out.println("Welcome to Brewsings! Which potion may warrant your attention ? " + newLine);
             System.out.println("You have: " + wizard.Gold + " Gold\uD83D\uDCB0" + newLine);
-            System.out.print("1. Health potion: 15 Gold" + newLine + "2. Damage boost potion: 30 Gold" + newLine + "3. Mana potion: 15 Gold" +newLine);
+            System.out.print("1. Health potion: 15 Gold" + newLine + "2. Damage boost potion: 30 Gold" + newLine + "3. Mana potion: 15 Gold" +newLine + "4. Nevermind" +newLine);
             inputChecker();
 
             if (playerChoice == 1) {
@@ -131,6 +132,9 @@ public class GameLogic {
                 wizard.addPotion(new Potion());
                 wizard.Gold -= 15;
                 System.out.println(newLine +"You have: " + wizard.Gold + "Gold\uD83D\uDCB0");
+            }
+            if (playerChoice == 4) {
+                return;
             }
 
         }

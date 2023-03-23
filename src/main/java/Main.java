@@ -24,6 +24,8 @@ public  class Main {
             Boss boss = new Boss();
             game.battle(wizard, boss);
         }
+
+
     }
 }
 
