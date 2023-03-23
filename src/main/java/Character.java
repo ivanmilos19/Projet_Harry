@@ -1,8 +1,16 @@
 
 public abstract class Character {
 
-    int currentHP = 100;
-    int baseHP = 100;
+    int currentHP = 1000;
+    int baseHP = 1000;
+
+    public void maxHealth(Character target) {
+        int maxHP = 100;
+        if (maxHP < target.currentHP) {
+            target.currentHP = maxHP;
+        }
+
+    }
 
     /** the character attacks the given target */
     public void attack(Character target)
@@ -18,7 +26,6 @@ public abstract class Character {
         int new_HP = target.currentHP + 5;
         target.currentHP = new_HP;
     }
-
     /** how much damage can the character inflict when attacking a target */
     public abstract int damageInflicted();
 

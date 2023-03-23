@@ -5,6 +5,6 @@ public class Enemy extends AbstractEnemy {
 
     @Override
     public int damageInflicted() {
-        return 10;
+        return 13;
     }
 }
