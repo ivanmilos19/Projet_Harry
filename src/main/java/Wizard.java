@@ -26,6 +26,8 @@ public class Wizard extends Character {
     int addingDmg = 0;
     Potion currentHealthPotion = null;
     int damagePotionTurnsLeft = 0;
+    int Gold = 50;
+
 
     Spell spell = new Spell();
     int[] wingardiumNumbers = getSpell().wingardiumLeviosa();

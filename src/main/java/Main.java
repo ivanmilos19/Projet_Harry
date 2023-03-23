@@ -21,8 +21,8 @@ public  class Main {
         if (wizard.isAlive())
         {
             wizard.currentHP = wizard.baseHP;
-
-            game.battle(wizard, enemy);
+            Boss boss = new Boss();
+            game.battle(wizard, boss);
         }
     }
 }
