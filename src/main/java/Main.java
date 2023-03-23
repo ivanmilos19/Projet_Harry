@@ -12,20 +12,18 @@ public  class Main {
         wizard.addPotion(new Potion());
         wizard.addSpell(new Spell());
 
-        GameLogic game = new GameLogic();
+        //ameLogic game = new GameLogic();
+        TrollFight trollFight = new TrollFight();
 
-        AbstractEnemy enemy = new Enemy()   ;
-        game.battle(wizard, enemy);
+        Troll troll = new Troll();
+        trollFight.battle(wizard, troll);
 
+        //AbstractEnemy enemy = new Enemy()   ;
+        //game.battle(wizard, enemy);
 
-        if (wizard.isAlive())
-        {
-            wizard.currentHP = wizard.baseHP;
-            Boss boss = new Boss();
-            game.battle(wizard, boss);
+        if (wizard.isAlive()) {
+
         }
-
-
     }
 }
 

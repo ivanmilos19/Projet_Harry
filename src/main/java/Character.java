@@ -1,8 +1,8 @@
 
 public abstract class Character {
 
-    int currentHP =0;
-    int baseHP = 0;
+    int currentHP = 700;
+    int baseHP = 700;
 
 
     /** the character attacks the given target */

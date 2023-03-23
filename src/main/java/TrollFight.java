@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @Data
-public class GameLogic {
+public class TrollFight {
     public static final String RESET = "\033[0m";  // Text Reset
     public static final String BLACK_BOLD_BRIGHT = "\033[1;90m"; // BLACK
     public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
@@ -32,10 +32,10 @@ public class GameLogic {
         } while (true);
     }
 
-    public void battle(Wizard wizard, AbstractEnemy enemy) {
+    public void battle(Wizard wizard, Troll troll) {
         while (true) {
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.currentHP + "/" + wizard.baseHP + " ❤");
-            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + "Enemy HP: " + enemy.currentHP + "/" + enemy.baseHP + " ❤");
+            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + "Troll HP: " + troll.currentHP + "/" + troll.baseHP + " ❤");
             System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.currentmanaPool + "/" + wizard.manaPool + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
 
             System.out.println(RESET + newLine + "Choose an action:" + newLine);
@@ -46,7 +46,7 @@ public class GameLogic {
 
 
             if (playerChoice == 1) {
-                wizard.attack(enemy); // the protagonist is attacking its enemy
+                wizard.attack(troll); // the protagonist is attacking its enemy
             }
             if (playerChoice == 2) {
                 wizard.defend(wizard);
@@ -81,21 +81,21 @@ public class GameLogic {
                 inputChecker();
 
                 if (playerChoice == 1) {
-                    wizard.useWingardiumLeviosa(enemy);
+                    wizard.useWingardiumLeviosa(troll);
                 }
 
             }
 
-            if (enemy.isDead()) {
+            if (troll.isDead()) {
                 System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foe defeated !");
                 break;
             }
 
-            enemy.attack(wizard); // now the protagonist is attacked
+            troll.attack(wizard); // now the protagonist is attacked
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
-                return;
+                break;
             }
 
 

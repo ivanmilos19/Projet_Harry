@@ -19,8 +19,7 @@ public class Wizard extends Character {
     ArrayList<Spell> sectumsempra = new ArrayList<>();
     ArrayList<Spell> expelliarmus = new ArrayList<>();
 
-    int currentHP = 300;
-    int baseHP = 300;;
+
     int manaPool = 100;
     int currentmanaPool = 100;
     int attack_strength = 100;
