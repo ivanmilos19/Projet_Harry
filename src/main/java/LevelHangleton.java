@@ -1,11 +1,10 @@
-import com.sun.nio.sctp.SendFailedNotification;
 import lombok.Data;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @Data
-public class GameLogic {
+public class LevelHangleton {
     public static final String RESET = "\033[0m";  // Text Reset
     public static final String BLACK_BOLD_BRIGHT = "\033[1;90m"; // BLACK
     public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
@@ -24,18 +23,25 @@ public class GameLogic {
             try {
                 playerChoice = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
-                break;
+
+                if (playerChoice == 1 || playerChoice == 2 || playerChoice == 3 || playerChoice == 4 ) {
+                    break;
+                } else {
+                    System.out.println(YELLOW_BOLD_BRIGHT + "⚠️ Please enter a valid choice.");
+                }
             } catch (InputMismatchException e) {
                 scanner.nextLine();
-                System.out.println(YELLOW_BOLD_BRIGHT + "⚠️ Please write a valid choice.");
+                System.out.println(YELLOW_BOLD_BRIGHT + "⚠️ Please enter a valid choice.");
             }
         } while (true);
     }
 
-    public void battle(Wizard wizard, AbstractEnemy enemy) {
+
+    public void battle(Wizard wizard, Enemy Pettigrow, Boss voldemort, Enemy portolion) {
         while (true) {
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤");
-            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + "Enemy HP: " + enemy.getCurrentHP() + "/" + enemy.getBaseHP() + " ❤");
+            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + Pettigrow.getName() + ": " + Pettigrow.getCurrentHP() + "/" + Pettigrow.getBaseHP() + " ❤");
+            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + voldemort.getName() + ": " + voldemort.getCurrentHP() + "/" + voldemort.getBaseHP() + " ❤");
             System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
 
             System.out.println(RESET + newLine + "Choose an action:" + newLine);
@@ -46,14 +52,27 @@ public class GameLogic {
 
 
             if (playerChoice == 1) {
-                wizard.attack(enemy); // the protagonist is attacking its enemy
+                System.out.println(RESET +newLine + "Choose an ennemy to attack" + newLine);
+                System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
+
+                inputChecker();
+
+                if (playerChoice == 1) {
+                    wizard.attack(Pettigrow);
+                }
+
+                else if (playerChoice == 2) {
+                    wizard.attack(voldemort);
+                }
+
             }
-            if (playerChoice == 2) {
+            else if (playerChoice == 2) {
                 wizard.defend();
             }
 
             if (playerChoice == 3) {
-                System.out.println(RESET + newLine + newLine + "Select a potion" + newLine);
+
+                System.out.println(RESET + newLine + "Select a potion" + newLine);
                 System.out.println("1: Health Potion" + newLine + "2: Attack buff potion" + newLine + "3: Mana potion");
 
                 inputChecker();
@@ -75,23 +94,66 @@ public class GameLogic {
 
             if (playerChoice == 4) {
 
-                System.out.println(RESET + newLine + newLine + "Choose which spell to cast !" + newLine);
-                System.out.println("1: Wingardium leviosa" + newLine + "2: X");
+                System.out.println(RESET +newLine + "Choose which spell to cast !" + newLine);
+                System.out.println("1: Wingardium leviosa" + newLine + "2: Expecto Patronum" + newLine + "3: Accio");
 
                 inputChecker();
 
                 if (playerChoice == 1) {
-                    wizard.useWingardiumLeviosa(enemy);
+                    System.out.println(RESET + newLine + "Choose an ennemy to attack" + newLine);
+                    System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
+
+                    inputChecker();
+
+                    if (playerChoice == 1) {
+                        wizard.useWingardiumLeviosa(Pettigrow);
+                    }
+
+                    if (playerChoice == 2) {
+                        System.out.println(WHITE_BOLD_BRIGHT + "A rock has fallen on the the trolls head and dealt big damage !");
+                        wizard.useWingardiumLeviosa(voldemort);
+                    }
+                }
+
+                if (playerChoice == 2) {
+                    System.out.println(RESET + newLine + "Choose an enemy to cast Expecto Patronum on:" + newLine);
+                    System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
+
+                    inputChecker();
+
+                    if (playerChoice == 1) {
+                        wizard.useExpecto(Pettigrow);
+                    }
+
+                    if (playerChoice == 2) {
+                        wizard.useExpecto(voldemort);
+                    }
+                }
+
+                if (playerChoice == 3) {
+                    System.out.println(RESET + newLine + "Choose an object to cast accio on:" + newLine);
+                    System.out.println("1: " + portolion.getName());
+                    inputChecker();
+
+                    if (playerChoice == 1) {
+                        wizard.useAccio(portolion);
+                        break;
+                    }
+
                 }
 
             }
 
-            if (enemy.isDead()) {
+            if (Pettigrow.isDead() && voldemort.isDead()) {
                 System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foe defeated !");
                 break;
             }
 
-            enemy.attack(wizard); // now the protagonist is attacked
+
+            Pettigrow.attack(wizard); // now the protagonist is attacked
+            voldemort.attack(wizard);
+
+            System.out.println("You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
@@ -103,6 +165,8 @@ public class GameLogic {
 
 
         }
+
+        System.out.println(PURPLE_BOLD_BRIGHT + "You managed to escape! But voldemort doesn't give up so easily..." +newLine);
 
         wizard.setBaseHP(wizard.getBaseHP() + 100) ; ;
         wizard.setGold(wizard.getGold() + 20);
@@ -143,4 +207,3 @@ public class GameLogic {
         }
     }
 }
-

@@ -39,4 +39,28 @@ public class InputReader {
         return  playerChoice;
 
     }
+
+    public int readInputByNumber() {
+        String newLine = System.getProperty("line.separator");
+        int playerChoice;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(instructions);
+        showValidOptions();
+        do {
+            String input = scanner.nextLine();
+            try {
+                playerChoice = Integer.valueOf(input.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("⚠️ invalid input format: '" + input + "'");
+                continue;
+            }
+            if (playerChoice >= 1 && playerChoice <= validChoices.length + 1)
+                break;
+            System.out.println(playerChoice + " is not a valid choice");
+            System.out.println(newLine + "⚠️ Please write only one of the available options");
+            showValidOptions();
+        } while (true);
+        return  playerChoice;
+
+    }
 }

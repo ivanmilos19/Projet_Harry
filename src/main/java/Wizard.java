@@ -1,14 +1,19 @@
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Arrays;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import java.util.ArrayList;
 @Data
+@SuperBuilder
 public class Wizard extends Character {
     public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";// YELLOW
 
+
+    ////////////// Arrays lists ////////////////////
     ArrayList<Potion> healthPotions = new ArrayList<>();
     ArrayList<Potion> damagePotions = new ArrayList<>();
     ArrayList<Potion> manaPotions = new ArrayList<>();
@@ -20,37 +25,82 @@ public class Wizard extends Character {
     ArrayList<Spell> expelliarmus = new ArrayList<>();
 
 
-    int manaPool = 100;
-    int currentmanaPool = 100;
-    int attack_strength = 100;
-    int addingDmg = 0;
-    Potion currentHealthPotion = null;
-    int damagePotionTurnsLeft = 0;
-    int Gold = 50;
+
+    ////////////// Wizard attributes ////////////////////
+
+    private int manaPool;
+    private int currentmanaPool;
+    private int new_HP;
+
+    ////////////// Spells attributes ////////////////////
+    private int wingardiumDmg;
+    private int wingardiumCrit;
+    private int wingardiumManaUsage;
+
+    private int expectoDmg;
+    private int expectoCrit;
+    private int expectoManaUsage;
 
 
-    Spell spell = new Spell();
-    int[] wingardiumNumbers = getSpell().wingardiumLeviosa();
+    private int accioDmg;
+    private int accioManaUsage;
 
+
+    public int size(){
+        return damagePotions.size();
+    }
+
+    //////////// Potions //////////////
+    private Potion currentDamagePotion = null;
+    private int damagePotionTurnsLeft = 0;
+    private int Gold;
+
+
+
+    /* @Override
+     public int damageInflicted() {
+         int effective_attack_strength = getAttack_strength();
+         if (damagePotionTurnsLeft > 0) {
+             effective_attack_strength += currentHealthPotion.attackImprovement();
+             damagePotionTurnsLeft--;
+         }
+         else
+             currentHealthPotion = null;
+         // potion has been used up
+         return effective_attack_strength;
+
+     }*/
     @Override
     public int damageInflicted() {
-        int effective_attack_strength = attack_strength;
+        int effective_attack_strength = getAttack_strength();
         if (damagePotionTurnsLeft > 0) {
-            effective_attack_strength += currentHealthPotion.attackImprovement();
+            effective_attack_strength += currentDamagePotion.attackImprovement();
             damagePotionTurnsLeft--;
+        } else {
+            currentDamagePotion = null;
         }
-        else
-            currentHealthPotion = null;
-        // potion has been used up
-        return effective_attack_strength;
+        Random rand = new Random();
+        double probability = 0.9; // 90% chance of hitting
+        if (rand.nextDouble() < probability) {
+            return effective_attack_strength;
+        } else {
+            System.out.println("the attack missed!");
+            return 0; // attack misses
+        }
     }
+
 
     public void maxHealth( ) {
 
-        if (baseHP < currentHP) {
-            currentHP = baseHP;
+        if (getBaseHP() < getCurrentHP()) {
+            setCurrentHP(getBaseHP());
         }
+    }
 
+    public void minimumGold() {
+        if (getGold() < 0) {
+            setGold(0);
+        }
     }
 
     public void maxMana( ) {
@@ -61,12 +111,12 @@ public class Wizard extends Character {
 
     }
 
-    public void manaSpent() {
-            int spending = wingardiumNumbers[0];
-            int newMana = currentmanaPool - spending;
-            if (newMana < 0)
-                newMana = 0;
-            currentmanaPool = newMana;
+    public void minMana( ) {
+
+        if (currentmanaPool < 0) {
+            currentmanaPool = 0;
+        }
+
     }
 
     public void addPotion(Potion potion)
@@ -78,9 +128,12 @@ public class Wizard extends Character {
 
     }
 
+    Spell spell = new Spell();
     public void addSpell(Spell spell)
     {
         wingardiumLeviosa.add(spell);
+        expectoPatronum.add(spell);
+        accio.add(spell);
     }
 
 
@@ -125,12 +178,12 @@ public class Wizard extends Character {
 
     // return true if potion equipped successfully, false otherwise
     public void equipDamagePotion() {
-        if (currentHealthPotion != null) {
+        if (currentDamagePotion != null) {
             System.out.println(YELLOW_BOLD_BRIGHT+"A damage potion is already equipped");
             return;
         }
-        currentHealthPotion = getAttackPotion();
-        if (currentHealthPotion != null) {
+        currentDamagePotion = getAttackPotion();
+        if (currentDamagePotion != null) {
             damagePotionTurnsLeft = 2;
             System.out.println(YELLOW_BOLD_BRIGHT + "Damage potion equipped");
         }
@@ -140,22 +193,65 @@ public class Wizard extends Character {
 
 
     public void useWingardiumLeviosa(Character target) {
-        int wingardiumDamage = addingDmg;
-        if (wingardiumLeviosa.size() > 0) {
+
+        if (wingardiumLeviosa.size() > 0 && currentmanaPool > 0 ) {
             Spell wingardium = wingardiumLeviosa.get(0);
-            wingardiumDamage +=  wingardiumNumbers[0];
-            int new_HP = target.currentHP - wingardiumDamage;
+
+            if (target.getName() == "Troll" ) {
+                new_HP = target.getCurrentHP() - wingardiumCrit;
+            } else {
+                new_HP = target.getCurrentHP() - wingardiumDmg;
+            }
             if (new_HP < 0)
                 new_HP = 0;
-            target.currentHP = new_HP;
+            target.setCurrentHP(new_HP);
+            currentmanaPool -= wingardiumManaUsage;
             wingardiumLeviosa.remove(0);
-            manaSpent();
+
         } else {
             System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast wingardium anymore");
         }
-
+        minMana();
     }
 
+    public void useExpecto(Character target) {
+
+        if (expectoPatronum.size() > 0 && currentmanaPool > 0) {
+            Spell expecto = expectoPatronum.get(0);
+
+            if (target.getName() == "Dementor" ) {
+                new_HP = target.getCurrentHP() - expectoCrit;
+            } else {
+                new_HP = target.getCurrentHP() - expectoDmg;
+            }
+
+            if (new_HP < 0)
+                new_HP = 0;
+            target.setCurrentHP(new_HP);
+            currentmanaPool -= expectoManaUsage;
+            expectoPatronum.remove(0);
+
+        } else {
+            System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast expecto patronum anymore");
+        }
+    }
+
+    public void useAccio(Character target) {
+
+        if (accio.size() > 0 && currentmanaPool > 0) {
+            Spell spellAccio = accio.get(0);
+            new_HP = target.getCurrentHP() - accioDmg;
+            if (new_HP < 0)
+                new_HP = 0;
+            target.setCurrentHP(new_HP);
+            currentmanaPool -= accioManaUsage;
+            accio.remove(0);
+
+        } else {
+            System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast accio anymore");
+        }
+
+    }
 
 
 

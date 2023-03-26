@@ -1,10 +1,13 @@
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-public class Enemy extends AbstractEnemy {
+@SuperBuilder
 
+public class Enemy extends AbstractEnemy{
     @Override
     public int damageInflicted() {
-        return 15;
+        return getAttack_strength();
     }
+
 }
