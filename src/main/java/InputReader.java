@@ -54,7 +54,7 @@ public class InputReader {
                 System.out.println("⚠️ invalid input format: '" + input + "'");
                 continue;
             }
-            if (playerChoice >= 1 && playerChoice <= validChoices.length + 1)
+            if (playerChoice >= 1 && playerChoice <= validChoices.length)
                 break;
             System.out.println(playerChoice + " is not a valid choice");
             System.out.println(newLine + "⚠️ Please write only one of the available options");

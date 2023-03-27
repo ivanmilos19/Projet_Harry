@@ -19,6 +19,7 @@ public  class Main {
         Wizard wizard = Wizard.builder()
                 .currentHP(3000)
                 .baseHP(3000)
+                .level(1)
 
                 .healthPotions(new ArrayList<>())
                 .manaPotions(new ArrayList<>())

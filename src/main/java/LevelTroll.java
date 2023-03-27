@@ -25,12 +25,15 @@ public class LevelTroll {
                 enemy_names[i++] = Troll.getName();
             }
 
-            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤");
+            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
+                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
+                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
             for (Boss Troll: troll) {
-                System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + Troll.getName() + ": " + Troll.getCurrentHP() + "/" + Troll.getBaseHP() + " ❤");
+                System.out.print(RED_BOLD_BRIGHT + Troll.getName() + ": " + Troll.getCurrentHP() + "/" + Troll.getBaseHP() + " ❤" + newLine);
             }
-            System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
+
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Potion", "Spell"})).readInputByNumber();
             int target_boss = 0;
@@ -107,7 +110,13 @@ public class LevelTroll {
         wizard.setGold(wizard.getGold() + 20);
         System.out.println("You won 20 Gold! " +newLine);
 
-        playerChoice = (new InputReader(RESET + "Do you wish to buy something in Brewsings ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
+
+        Shop shop = new Shop();
+        shop.openShop();
+
+
+
+        /*playerChoice = (new InputReader(RESET + "Do you wish to buy something in Brewsings ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
 
         if (playerChoice == 1) {
             System.out.println("Welcome to Brewsings! Which potion may warrant your attention ? " + newLine);
@@ -148,7 +157,7 @@ public class LevelTroll {
                     break;
                 }
             }
-        }
+        }*/
     }
 }
 

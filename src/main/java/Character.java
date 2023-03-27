@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public abstract class Character {
 
+
     protected int currentHP;
     private int baseHP;
     private int attack_strength;
@@ -19,7 +20,6 @@ public abstract class Character {
         int damage = damageInflicted();
         if (target.isDefending) {
             damage /= 2;
-            target.isDefending = false;
         }
         int new_HP = target.currentHP - damage;
         if (new_HP < 0)
@@ -27,9 +27,12 @@ public abstract class Character {
         target.currentHP = new_HP;
     }
 
-    public boolean isDefending;
+    private boolean isDefending;
     public void defend() {
         isDefending = true;
+    }
+    public void stopDefending() {
+        isDefending = false;
     }
     /** how much damage can the character inflict when attacking a target */
     public abstract int damageInflicted();

@@ -27,15 +27,19 @@ public class Wizard extends Character {
 
 
     ////////////// Wizard attributes ////////////////////
-
+    private int level;
     private int manaPool;
     private int currentmanaPool;
     private int new_HP;
+
+
 
     ////////////// Spells attributes ////////////////////
     private int wingardiumDmg;
     private int wingardiumCrit;
     private int wingardiumManaUsage;
+
+
 
     private int expectoDmg;
     private int expectoCrit;
@@ -192,8 +196,8 @@ public class Wizard extends Character {
     // override the basic attack to take potions into account
 
 
-    public void useWingardiumLeviosa(Character target) {
-
+    public boolean useWingardiumLeviosa(Character target) {
+        boolean success = false;
         if (wingardiumLeviosa.size() > 0 && currentmanaPool > 0 ) {
             Spell wingardium = wingardiumLeviosa.get(0);
 
@@ -207,19 +211,19 @@ public class Wizard extends Character {
             target.setCurrentHP(new_HP);
             currentmanaPool -= wingardiumManaUsage;
             wingardiumLeviosa.remove(0);
+            success = true;
 
-        } else {
-            System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast wingardium anymore");
         }
         minMana();
+        return success;
     }
 
-    public void useExpecto(Character target) {
-
+    public boolean useExpecto(Character target) {
+        boolean success = false;
         if (expectoPatronum.size() > 0 && currentmanaPool > 0) {
             Spell expecto = expectoPatronum.get(0);
 
-            if (target.getName() == "Dementor" ) {
+            if (target.getName() == "Dementor") {
                 new_HP = target.getCurrentHP() - expectoCrit;
             } else {
                 new_HP = target.getCurrentHP() - expectoDmg;
@@ -230,10 +234,10 @@ public class Wizard extends Character {
             target.setCurrentHP(new_HP);
             currentmanaPool -= expectoManaUsage;
             expectoPatronum.remove(0);
-
-        } else {
-            System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast expecto patronum anymore");
+            success = true;
         }
+        minMana();
+        return success;
     }
 
     public void useAccio(Character target) {

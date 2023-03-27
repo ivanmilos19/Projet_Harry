@@ -28,12 +28,15 @@ public class LevelDementor {
                 enemy_names[i++] = dementor.getName();
             }
 
-            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤");
+            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
+                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
+                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
+
 
             for (Enemy dementor: dementors) {
-                System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + dementor.getName() + ": " + dementor.getCurrentHP() + "/" + dementor.getBaseHP() + " ❤");
+                System.out.print(RED_BOLD_BRIGHT + dementor.getName() + ": " + dementor.getCurrentHP() + "/" + dementor.getBaseHP() + " ❤" + newLine );
             }
-            System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Potion", "Spell"})).readInputByNumber();
             int target_enemy = 0;
@@ -70,13 +73,18 @@ public class LevelDementor {
                 target_enemy = (new InputReader(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names)).readInputByNumber();
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
-                    wizard.useWingardiumLeviosa(dementors.get(target_enemy - 1));
+                    if (!wizard.useWingardiumLeviosa(dementors.get(target_enemy - 1)))  {
+                        System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast wingardium anymore");
+                        continue;
+                    }
                 }
 
                 if (playerChoice == 2) {
-                    wizard.useExpecto(dementors.get(target_enemy - 1));
+                    if (!wizard.useExpecto(dementors.get(target_enemy - 1))){
+                        System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast expecto patronum anymore");
+                        continue;
+                    }
                 }
-
             }
 
 
@@ -96,7 +104,10 @@ public class LevelDementor {
                     dementor.attack(wizard);
 
             }
-            System.out.println("You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
+
+            wizard.stopDefending(); // the wizard's defense is back to normal
+
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.damageInflicted() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
@@ -109,51 +120,11 @@ public class LevelDementor {
 
         }
 
-        wizard.setBaseHP(wizard.getBaseHP() + 100) ; ;
-        wizard.setGold(wizard.getGold() + 20);
-        System.out.println("You won 20 Gold! " +newLine);
+        Rewards rewards = new Rewards();
+        rewards.Rewards();
 
-        playerChoice = (new InputReader(RESET + "Do you wish to buy something in Brewsings ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
+        Shop shop = new Shop();
+        shop.openShop();
 
-        if (playerChoice == 1) {
-            System.out.println("Welcome to Brewsings! Which potion may warrant your attention ? " + newLine);
-            System.out.println("You have: " + wizard.getGold() + " Gold\uD83D\uDCB0" + newLine);
-
-            while (true) {
-
-                int healthPrice = 15;
-                int damagePrice = 30;
-                int manaPrice = 15;
-
-
-                playerChoice = (new InputReader(RESET + "Please enter your choice" + newLine, new String[]{"Health potion: 15 Gold", "Damage boost potion: 30 Gold", "Mana potion: 15 Gold", "Nevermind"})).readInputByNumber();
-
-
-                if (playerChoice == 1 && wizard.getGold() - healthPrice > 0) {
-                    wizard.addPotion(new Potion());
-                    wizard.setGold(wizard.getGold() - healthPrice);
-                    System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a health potion");
-                }
-
-                else if (playerChoice == 2 && wizard.getGold() - damagePrice > 0) {
-                    wizard.addPotion(new Potion());
-                    wizard.setGold(wizard.getGold() - damagePrice);
-                    System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a damage boost potion");
-                }
-
-                else if (playerChoice == 3 && wizard.getGold() - manaPrice > 0) {
-                    wizard.addPotion(new Potion());
-                    wizard.setGold(wizard.getGold() - manaPrice);
-                    System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a mana potion");
-                } else {
-                    System.err.println("not enough gold" +newLine);
-                }
-                System.out.println(newLine + "You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-
-                if (playerChoice == 4) {
-                    break;
-                }
-            }
-        }
     }
 }
