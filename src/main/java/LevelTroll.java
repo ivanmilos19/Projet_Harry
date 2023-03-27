@@ -14,6 +14,8 @@ public class LevelTroll {
     String newLine = System.getProperty("line.separator");
     Scanner scanner = new Scanner(System.in);
 
+    Spell spell = new Spell();
+
 
     public void battle(Wizard wizard, ArrayList<Boss> troll) {
         int playerChoice = 0;
@@ -49,7 +51,13 @@ public class LevelTroll {
                 wizard.defend();
             } else if (playerChoice == 3) { // Potion
 
-                playerChoice = (new InputReader(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion", "Attack buff potion", "Mana potion"})).readInputByNumber();
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
+                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
+                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
+                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
 
                 if (playerChoice == 1) {
                     wizard.useHealthPotion();
@@ -65,15 +73,18 @@ public class LevelTroll {
                 }
 
             } else if (playerChoice == 4) { // Spell
-
-                playerChoice = (new InputReader(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa"})).readInputByNumber();
-                target_boss = (new InputReader(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names)).readInputByNumber();
-
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining"});
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
+                reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names);
+                target_boss = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
                 if (playerChoice == 1) { // "Wingardium leviosa"
                     wizard.useWingardiumLeviosa(troll.get(target_boss - 1));
                 }
-
-
             }
 
 
@@ -110,9 +121,11 @@ public class LevelTroll {
         wizard.setGold(wizard.getGold() + 20);
         System.out.println("You won 20 Gold! " +newLine);
 
+        Rewards rewards  = new Rewards();
+        rewards.getRewards(wizard);
 
         Shop shop = new Shop();
-        shop.openShop();
+        shop.enterShop(wizard);
 
 
 

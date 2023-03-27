@@ -121,10 +121,10 @@ public class LevelDementor {
         }
 
         Rewards rewards = new Rewards();
-        rewards.Rewards();
+        rewards.getRewards(wizard);
 
         Shop shop = new Shop();
-        shop.openShop();
+        shop.enterShop(wizard);
 
     }
 }

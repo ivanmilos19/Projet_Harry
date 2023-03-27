@@ -8,11 +8,9 @@ public class Shop {
     String newLine = System.getProperty("line.separator");
 
 
-    public void openShop() {
+    public void enterShop(Wizard wizard) {
+        int playerChoice;
 
-        Wizard wizard = null;
-
-        int playerChoice = 0;
         playerChoice = (new InputReader(RESET + "Do you wish to buy something in Brewsings ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
 
         if (playerChoice == 1) {

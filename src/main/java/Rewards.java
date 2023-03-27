@@ -1,8 +1,7 @@
 public class Rewards {
     String newLine = System.getProperty("line.separator");
-    public void Rewards() {
+    public void getRewards(Wizard wizard) {
 
-        Wizard wizard = null;
 
         wizard.setBaseHP(wizard.getBaseHP() + 100);
         wizard.setGold(wizard.getGold() + 20);

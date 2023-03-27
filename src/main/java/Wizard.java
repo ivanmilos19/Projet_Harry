@@ -24,6 +24,32 @@ public class Wizard extends Character {
     ArrayList<Spell> sectumsempra = new ArrayList<>();
     ArrayList<Spell> expelliarmus = new ArrayList<>();
 
+    public int getNumberHealthPotion(ArrayList<Potion> healthPotions) {
+        return healthPotions.size();
+    }
+    public int getNumberAttackPotion(ArrayList<Potion> damagePotions) {
+        return damagePotions.size();
+    }
+    public int getNumberManaPotion(ArrayList<Potion> manaPotions) {
+        return manaPotions.size();
+    }
+
+    public int getNumberWingardiumSpells(ArrayList<Spell> wingardiumLeviosa) {
+        return wingardiumLeviosa.size();
+    }
+    public int getNumberAccioSpells(ArrayList<Spell> accio) {
+        return accio.size();
+    }
+    public int getNumberExpectoSpells(ArrayList<Spell> expectoPatronum) {
+        return expectoPatronum.size();
+    }
+    public int getNumberSectumsempraSpells(ArrayList<Spell> sectumsempra) {
+        return sectumsempra.size();
+    }
+    public int getNumberExpelliarmusSpells(ArrayList<Spell> expelliarmus) {
+        return expelliarmus.size();
+    }
+
 
 
     ////////////// Wizard attributes ////////////////////
@@ -32,6 +58,7 @@ public class Wizard extends Character {
     private int currentmanaPool;
     private int new_HP;
 
+    House house;
 
 
     ////////////// Spells attributes ////////////////////
@@ -101,11 +128,6 @@ public class Wizard extends Character {
         }
     }
 
-    public void minimumGold() {
-        if (getGold() < 0) {
-            setGold(0);
-        }
-    }
 
     public void maxMana( ) {
 

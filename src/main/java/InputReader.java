@@ -10,6 +10,10 @@ public class InputReader {
         this.validChoices = validChoices;
     }
 
+    public int getNumberOfValidChoices()
+    {
+        return validChoices.length;
+    }
     private boolean isPlayerChoiceValid(String playerChoice)
     {
         return Arrays.asList(validChoices).contains(playerChoice);

@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public  class Main {
@@ -16,10 +15,16 @@ public  class Main {
         String newLine = System.getProperty("line.separator");
 
 
+
+        SortingHat sortingHat = new SortingHat();
+        House house = sortingHat.getHouse();
+
         Wizard wizard = Wizard.builder()
                 .currentHP(3000)
                 .baseHP(3000)
                 .level(1)
+
+                .house(sortingHat.getHouse())
 
                 .healthPotions(new ArrayList<>())
                 .manaPotions(new ArrayList<>())
@@ -29,7 +34,7 @@ public  class Main {
                 .expectoPatronum(new ArrayList<>())
                 .accio(new ArrayList<>())
 
-                .attack_strength(22345)
+                .attack_strength((int)(150*house.attackMultiplier()))
                 .manaPool(100)
                 .currentmanaPool(100)
 
@@ -48,18 +53,13 @@ public  class Main {
                 .Gold(50)
                 .build();
 
-        /*SortingHat sortingHat = new SortingHat();
-        wizard.Pet();
-        Wand wand = new Wand();
-        wand.Wand();*/
-
-
-
         // give it one potion to start with
         wizard.addPotion(new Potion());
         wizard.addSpell(new Spell());
 
-
+        /*wizard.Pet();
+        Wand wand = new Wand();
+        wand.Wand();*/
 
         ////////// LEVEL 1 //////////////
         LevelTroll levelTroll = new LevelTroll();
