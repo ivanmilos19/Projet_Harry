@@ -57,6 +57,7 @@ public class Wizard extends Character {
     private int manaPool;
     private int currentmanaPool;
     private int new_HP;
+    private double accuracy;
 
     House house;
 
@@ -77,9 +78,6 @@ public class Wizard extends Character {
     private int accioManaUsage;
 
 
-    public int size(){
-        return damagePotions.size();
-    }
 
     //////////// Potions //////////////
     private Potion currentDamagePotion = null;
@@ -111,7 +109,7 @@ public class Wizard extends Character {
             currentDamagePotion = null;
         }
         Random rand = new Random();
-        double probability = 0.9; // 90% chance of hitting
+        double probability = accuracy; // 90% chance of hitting
         if (rand.nextDouble() < probability) {
             return effective_attack_strength;
         } else {
@@ -145,13 +143,19 @@ public class Wizard extends Character {
 
     }
 
-    public void addPotion(Potion potion)
+    public void addHealthPotion(Potion potion)
     {
         healthPotions.add(potion);
+    }
+
+    public void addDamagePotion(Potion potion)
+    {
         damagePotions.add(potion);
+    }
+
+    public void addManaPotion(Potion potion)
+    {
         manaPotions.add(potion);
-
-
     }
 
     Spell spell = new Spell();

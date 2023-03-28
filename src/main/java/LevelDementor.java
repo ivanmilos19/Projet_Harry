@@ -43,7 +43,11 @@ public class LevelDementor {
 
             if (playerChoice == 1) { // Attack
 
-                target_enemy = (new InputReader(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names)).readInputByNumber();
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names);
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
+
 
                 wizard.attack(dementors.get(target_enemy - 1));
 
@@ -52,7 +56,13 @@ public class LevelDementor {
                 wizard.defend();
             } else if (playerChoice == 3) { // Potion
 
-                playerChoice = (new InputReader(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion", "Attack buff potion", "Mana potion"})).readInputByNumber();
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
+                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
+                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
+                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
 
                 if (playerChoice == 1) {
                     wizard.useHealthPotion();
@@ -68,22 +78,17 @@ public class LevelDementor {
                 }
 
             } else if (playerChoice == 4) { // Spell
-
-                playerChoice = (new InputReader(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa", "Expecto Patronum"})).readInputByNumber();
-                target_enemy = (new InputReader(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names)).readInputByNumber();
-
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining"});
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
+                reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names);
+                target_enemy = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
                 if (playerChoice == 1) { // "Wingardium leviosa"
-                    if (!wizard.useWingardiumLeviosa(dementors.get(target_enemy - 1)))  {
-                        System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast wingardium anymore");
-                        continue;
-                    }
-                }
-
-                if (playerChoice == 2) {
-                    if (!wizard.useExpecto(dementors.get(target_enemy - 1))){
-                        System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast expecto patronum anymore");
-                        continue;
-                    }
+                    wizard.useWingardiumLeviosa(dementors.get(target_enemy - 1));
                 }
             }
 

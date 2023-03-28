@@ -13,13 +13,15 @@ public abstract class Character {
     private int attack_strength;
     private String name;
 
+    private int defense;
+
 
     /** the character attacks the given target */
     public void attack(Character target)
     {
         int damage = damageInflicted();
         if (target.isDefending) {
-            damage /= 2;
+            damage /= defense;
         }
         int new_HP = target.currentHP - damage;
         if (new_HP < 0)

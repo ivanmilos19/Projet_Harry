@@ -1,3 +1,4 @@
+/*
 import lombok.Data;
 
 import java.util.InputMismatchException;
@@ -103,7 +104,7 @@ public class GameLogic {
 
         }
 
-        wizard.setBaseHP(wizard.getBaseHP() + 100) ; ;
+        wizard.setBaseHP(wizard.getBaseHP() + 100) ;
         wizard.setGold(wizard.getGold() + 20);
         System.out.println("You won 20 Gold! " +newLine);
 
@@ -111,35 +112,6 @@ public class GameLogic {
         System.out.print("1.Yes" + newLine + "2.No" + newLine);
         inputChecker();
 
-        if (playerChoice == 1) {
-            System.out.println("Welcome to Brewsings! Which potion may warrant your attention ? " + newLine);
-            System.out.println("You have: " + wizard.getGold() + " Gold\uD83D\uDCB0" + newLine);
-            System.out.print("1. Health potion: 15 Gold" + newLine + "2. Damage boost potion: 30 Gold" + newLine + "3. Mana potion: 15 Gold" +newLine + "4. Nevermind" +newLine);
-            inputChecker();
-
-            if (playerChoice == 1) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 15);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 2) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 30);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 3) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 15);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 4) {
-                return;
-            }
-
-        }
-        if (playerChoice == 2) {
-            return;
-        }
-    }
 }
 
+*/

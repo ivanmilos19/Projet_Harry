@@ -3,6 +3,6 @@ public class Ravenclaw extends House {
 
     @Override
     public double precision() {
-        return 0.99;
+        return 0.1;
     }
 }

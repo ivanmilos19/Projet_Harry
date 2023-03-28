@@ -2,11 +2,11 @@ public abstract class House {
 
     public abstract String getName();
 
-    public double defenseMultiplier() { return 1; };
+    public int defenseMultiplier() { return 0; };
 
     public double attackMultiplier() { return 1; }
 
-    public double precision() { return 0.9; }
+    public double precision() { return 0; }
 
     public boolean improvedPotions() { return false; }
 

@@ -8,4 +8,6 @@ public class Potion {
     }
     public int healthImprovement() { return 80; }
     public int manaImprovement() {return 40;}
+
+
 }

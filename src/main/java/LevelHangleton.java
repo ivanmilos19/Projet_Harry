@@ -1,5 +1,6 @@
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -37,45 +38,53 @@ public class LevelHangleton {
     }
 
 
-    public void battle(Wizard wizard, Enemy Pettigrow, Boss voldemort, Enemy portolion) {
+    public void battle(Wizard wizard, ArrayList<Enemy> hangleton) {
+        int playerChoice = 0;
         while (true) {
-            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤");
-            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + Pettigrow.getName() + ": " + Pettigrow.getCurrentHP() + "/" + Pettigrow.getBaseHP() + " ❤");
-            System.out.print(WHITE_BOLD_BRIGHT + "  |  " + RED_BOLD_BRIGHT + voldemort.getName() + ": " + voldemort.getCurrentHP() + "/" + voldemort.getBaseHP() + " ❤");
-            System.out.println(newLine + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7" + WHITE_BOLD_BRIGHT + "       |");
 
-            System.out.println(RESET + newLine + "Choose an action:" + newLine);
-            System.out.println("1: Attack" + newLine + "2: Defend" + newLine + "3: Potion" + newLine + "4: Spell");
+            String[] enemy_names = new String[hangleton.size()];
+            int i = 0;
+            for (Enemy Hangelton: hangleton) {
+                enemy_names[i++] = Hangelton.getName();
+            }
+
+            System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
+                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
+                    + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
+                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" +newLine + newLine);
 
 
-            inputChecker();
+            for (Enemy Hangelton: hangleton) {
+                System.out.print(RED_BOLD_BRIGHT + Hangelton.getName() + ": " + Hangelton.getCurrentHP() + "/" + Hangelton.getBaseHP() + " ❤" + newLine );
+            }
+
+            playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Potion", "Spell"})).readInputByNumber();
+            int target_enemy = 0;
 
 
-            if (playerChoice == 1) {
-                System.out.println(RESET +newLine + "Choose an ennemy to attack" + newLine);
-                System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
+            if (playerChoice == 1) { // Attack
 
-                inputChecker();
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names);
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
 
-                if (playerChoice == 1) {
-                    wizard.attack(Pettigrow);
-                }
 
-                else if (playerChoice == 2) {
-                    wizard.attack(voldemort);
-                }
+                wizard.attack(hangleton.get(target_enemy - 1));
 
             }
-            else if (playerChoice == 2) {
+            else if (playerChoice == 2) { // Defend
                 wizard.defend();
-            }
+            } else if (playerChoice == 3) { // Potion
 
-            if (playerChoice == 3) {
-
-                System.out.println(RESET + newLine + "Select a potion" + newLine);
-                System.out.println("1: Health Potion" + newLine + "2: Attack buff potion" + newLine + "3: Mana potion");
-
-                inputChecker();
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
+                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
+                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
+                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                playerChoice = reader.readInputByNumber();
+                if (reader.noopChosen())
+                    continue;
 
                 if (playerChoice == 1) {
                     wizard.useHealthPotion();
@@ -90,70 +99,54 @@ public class LevelHangleton {
                     continue;
                 }
 
-            }
+            } else if (playerChoice == 4) { // Spell
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]
+                        {"Wingardium leviosa | x"
+                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining", "Wingardium leviosa | x"
+                        + wizard.getNumberAccioSpells(wizard.getAccio()) + " remaining"} );
 
-            if (playerChoice == 4) {
+                playerChoice = reader.readInputByNumber();
 
-                System.out.println(RESET +newLine + "Choose which spell to cast !" + newLine);
-                System.out.println("1: Wingardium leviosa" + newLine + "2: Expecto Patronum" + newLine + "3: Accio");
+                if (reader.noopChosen())
+                    continue;
 
-                inputChecker();
+                reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names);
+                target_enemy = reader.readInputByNumber();
 
-                if (playerChoice == 1) {
-                    System.out.println(RESET + newLine + "Choose an ennemy to attack" + newLine);
-                    System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
+                if (reader.noopChosen())
+                    continue;
 
-                    inputChecker();
-
-                    if (playerChoice == 1) {
-                        wizard.useWingardiumLeviosa(Pettigrow);
-                    }
-
-                    if (playerChoice == 2) {
-                        System.out.println(WHITE_BOLD_BRIGHT + "A rock has fallen on the the trolls head and dealt big damage !");
-                        wizard.useWingardiumLeviosa(voldemort);
-                    }
+                if (playerChoice == 1) { // "Wingardium leviosa"
+                    wizard.useWingardiumLeviosa(hangleton.get(target_enemy - 1));
                 }
-
-                if (playerChoice == 2) {
-                    System.out.println(RESET + newLine + "Choose an enemy to cast Expecto Patronum on:" + newLine);
-                    System.out.println("1: " + Pettigrow.getName() + newLine + "2: " + voldemort.getName());
-
-                    inputChecker();
-
-                    if (playerChoice == 1) {
-                        wizard.useExpecto(Pettigrow);
-                    }
-
-                    if (playerChoice == 2) {
-                        wizard.useExpecto(voldemort);
-                    }
-                }
-
-                if (playerChoice == 3) {
-                    System.out.println(RESET + newLine + "Choose an object to cast accio on:" + newLine);
-                    System.out.println("1: " + portolion.getName());
-                    inputChecker();
-
-                    if (playerChoice == 1) {
-                        wizard.useAccio(portolion);
-                        break;
-                    }
-
+                else if (playerChoice == 2 ) { // "Wingardium leviosa"
+                    wizard.useAccio(hangleton.get(target_enemy - 1));
+                } else if (playerChoice == 3 ) { // "Wingardium leviosa"
+                    wizard.useExpecto(hangleton.get(target_enemy - 1));
                 }
 
             }
 
-            if (Pettigrow.isDead() && voldemort.isDead()) {
-                System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foe defeated !");
+            boolean allFoesDead = true;
+            for (Enemy Hangelton: hangleton) {
+                allFoesDead = allFoesDead && Hangelton.isDead();
+            }
+
+            if (allFoesDead) {
+                System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foes defeated !");
                 break;
             }
 
+            // now the protagonist is attacked
+            for (Enemy Hangelton: hangleton) {
+                if (Hangelton.isAlive())
+                    Hangelton.attack(wizard);
 
-            Pettigrow.attack(wizard); // now the protagonist is attacked
-            voldemort.attack(wizard);
+            }
 
-            System.out.println("You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
+            wizard.stopDefending(); // the wizard's defense is back to normal
+
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.damageInflicted() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
@@ -166,44 +159,11 @@ public class LevelHangleton {
 
         }
 
-        System.out.println(PURPLE_BOLD_BRIGHT + "You managed to escape! But voldemort doesn't give up so easily..." +newLine);
+        Rewards rewards = new Rewards();
+        rewards.getRewards(wizard);
 
-        wizard.setBaseHP(wizard.getBaseHP() + 100) ; ;
-        wizard.setGold(wizard.getGold() + 20);
-        System.out.println("You won 20 Gold! " +newLine);
+        Shop shop = new Shop();
+        shop.enterShop(wizard);
 
-        System.out.println(RESET +"Do you wish to buy something in Brewsings ?" + newLine);
-        System.out.print("1.Yes" + newLine + "2.No" + newLine);
-        inputChecker();
-
-        if (playerChoice == 1) {
-            System.out.println("Welcome to Brewsings! Which potion may warrant your attention ? " + newLine);
-            System.out.println("You have: " + wizard.getGold() + " Gold\uD83D\uDCB0" + newLine);
-            System.out.print("1. Health potion: 15 Gold" + newLine + "2. Damage boost potion: 30 Gold" + newLine + "3. Mana potion: 15 Gold" +newLine + "4. Nevermind" +newLine);
-            inputChecker();
-
-            if (playerChoice == 1) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 15);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 2) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 30);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 3) {
-                wizard.addPotion(new Potion());
-                wizard.setGold(wizard.getGold() - 15);
-                System.out.println(newLine +"You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
-            }
-            if (playerChoice == 4) {
-                return;
-            }
-
-        }
-        if (playerChoice == 2) {
-            return;
-        }
     }
 }

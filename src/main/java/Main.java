@@ -23,6 +23,8 @@ public  class Main {
                 .currentHP(3000)
                 .baseHP(3000)
                 .level(1)
+                .accuracy(0.85 + house.precision())
+                .defense(2 + house.defenseMultiplier())
 
                 .house(sortingHat.getHouse())
 
@@ -34,7 +36,7 @@ public  class Main {
                 .expectoPatronum(new ArrayList<>())
                 .accio(new ArrayList<>())
 
-                .attack_strength((int)(150*house.attackMultiplier()))
+                .attack_strength((int)(12311 * house.attackMultiplier()))
                 .manaPool(100)
                 .currentmanaPool(100)
 
@@ -54,12 +56,18 @@ public  class Main {
                 .build();
 
         // give it one potion to start with
-        wizard.addPotion(new Potion());
+        wizard.addHealthPotion(new Potion());
+        wizard.addDamagePotion(new Potion());
+        wizard.addManaPotion(new Potion());
+
+        // add spells
+        wizard.addSpell(new Spell());
+        wizard.addSpell(new Spell());
         wizard.addSpell(new Spell());
 
-        /*wizard.Pet();
+       /* wizard.Pet();
         Wand wand = new Wand();
-        wand.Wand();*/
+        wand.Wand(); */
 
         ////////// LEVEL 1 //////////////
         LevelTroll levelTroll = new LevelTroll();
@@ -73,7 +81,7 @@ public  class Main {
         Troll.add(Boss.builder()
                 .currentHP(500)
                 .baseHP(500)
-                .attack_strength(40)
+                .attack_strength(30)
                 .name("Troll")
                 .build());
 
@@ -118,29 +126,30 @@ public  class Main {
             System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
             System.out.println(CYAN_BOLD_BRIGHT + "Voldemort and Pettigrow are here! you should flee away before it's too late, luckily the Portolion is here, you remember a spell that allows you to pull objects to you...\"");
 
+            ArrayList<Enemy> hangleton = new ArrayList<>();
 
-            Enemy Pettigrow = Enemy.builder()
+            hangleton.add(Enemy.builder()
                     .currentHP(600)
                     .baseHP(600)
                     .attack_strength(50)
                     .name("Pettigrow")
-                    .build();
+                    .build());
 
-            Enemy portolion = Enemy.builder()
+            hangleton.add(Enemy.builder()
                     .name("Portolion")
-                    .build();
+                    .build());
 
 
-            Boss voldemort = Boss.builder()
+            hangleton.add(Enemy.builder()
                     .baseHP(5000)
                     .currentHP(5000)
                     .attack_strength(20)
                     .name("Voldemort")
-                    .build();
+                    .build());
 
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            levelHangleton.battle(wizard, Pettigrow, voldemort, portolion);
+            levelHangleton.battle(wizard, hangleton);
         }
     }
 }

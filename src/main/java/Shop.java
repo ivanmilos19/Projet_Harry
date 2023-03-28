@@ -28,19 +28,19 @@ public class Shop {
 
 
                 if (playerChoice == 1 && wizard.getGold() - healthPrice > 0) {
-                    wizard.addPotion(new Potion());
+                    wizard.addHealthPotion(new Potion());
                     wizard.setGold(wizard.getGold() - healthPrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a health potion");
                 }
 
                 else if (playerChoice == 2 && wizard.getGold() - damagePrice > 0) {
-                    wizard.addPotion(new Potion());
+                    wizard.addDamagePotion(new Potion());
                     wizard.setGold(wizard.getGold() - damagePrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a damage boost potion");
                 }
 
                 else if (playerChoice == 3 && wizard.getGold() - manaPrice > 0) {
-                    wizard.addPotion(new Potion());
+                    wizard.addManaPotion(new Potion());
                     wizard.setGold(wizard.getGold() - manaPrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a mana potion");
                 } else {
