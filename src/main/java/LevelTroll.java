@@ -17,15 +17,10 @@ public class LevelTroll {
     Spell spell;
     Potion potion;
 
-    public void battle(Wizard wizard, ArrayList<Boss> troll) {
+    public void battle(Wizard wizard, Boss troll) {
         int playerChoice = 0;
         while (true) {
 
-            String[] enemy_names = new String[troll.size()];
-            int i = 0;
-            for (Boss Troll: troll) {
-                enemy_names[i++] = Troll.getName();
-            }
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
@@ -33,28 +28,22 @@ public class LevelTroll {
                     + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
                     + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" +newLine + newLine);
 
-            for (Boss Troll: troll) {
-                System.out.print(RED_BOLD_BRIGHT + Troll.getName() + ": " + Troll.getCurrentHP() + "/" + Troll.getBaseHP() + " ❤" + newLine);
-            }
+
+            System.out.print(RED_BOLD_BRIGHT + troll.getName() + ": " + troll.getCurrentHP() + "/" + troll.getBaseHP() + " ❤" + newLine);
+
 
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Potion", "Spell"})).readInputByNumber();
-            int target_boss = 0;
+
 
             if (playerChoice == 1) { // Attack
 
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names);
-                playerChoice = reader.readInputByNumber();
-                if (reader.noopChosen())
-                    continue;
-
-                //target_boss = (new InputReader(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names)).readInputByNumber();
-
-                wizard.attack(troll.get(target_boss - 1));
+                wizard.attack(troll);
 
             }
             else if (playerChoice == 2) { // Defend
                 wizard.defend();
+
             } else if (playerChoice == 3) { // Potion
 
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
@@ -81,36 +70,33 @@ public class LevelTroll {
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
                         + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining"});
+
                 playerChoice = reader.readInputByNumber();
                 if (reader.noopChosen())
                     continue;
-                reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names);
-                target_boss = reader.readInputByNumber();
+
                 if (reader.noopChosen())
                     continue;
                 if (playerChoice == 1) { // "Wingardium leviosa"
-                    wizard.useWingardiumLeviosa(troll.get(target_boss - 1));
+                    boolean success = wizard.useWingardiumLeviosa(troll);
+                    if (!success){
+                        System.out.println("can't cast wingardium leviosa no more");
+                        continue;
+                    }
+                    System.out.println( BLUE_BOLD_BRIGHT + "You used an object and dropped it on the troll's head. Big damage inflected !");
                 }
             }
 
 
-            boolean allFoesDead = true;
-            for (Boss Troll: troll) {
-                allFoesDead = allFoesDead && Troll.isDead();
-            }
-
-            if (allFoesDead) {
+            if (troll.isDead()) {
                 System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foes defeated !");
                 break;
             }
 
-            // now the protagonist is attacked
-            for (Boss Troll: troll) {
-                if (Troll.isAlive())
-                    Troll.attack(wizard);
+            troll.attack(wizard);
 
-            }
-            System.out.println("You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
+
+            System.out.println(RED_BOLD_BRIGHT+"You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
@@ -120,17 +106,13 @@ public class LevelTroll {
 
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
 
-
         }
-
-
 
         Rewards rewards  = new Rewards();
         rewards.getRewards(wizard);
 
         Shop shop = new Shop();
         shop.enterShop(wizard);
-
 
     }
 }

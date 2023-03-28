@@ -59,6 +59,8 @@ public class Wizard extends Character {
     private int new_HP;
     private double accuracy;
 
+
+
     House house;
 
 
@@ -102,6 +104,8 @@ public class Wizard extends Character {
     @Override
     public int damageInflicted() {
         int effective_attack_strength = getAttack_strength();
+        if (house.canUseSword())
+            effective_attack_strength *= 1.5;
         if (damagePotionTurnsLeft > 0) {
             effective_attack_strength += currentDamagePotion.attackImprovement();
             damagePotionTurnsLeft--;
@@ -110,12 +114,19 @@ public class Wizard extends Character {
         }
         Random rand = new Random();
         double probability = accuracy; // 90% chance of hitting
+
+
         if (rand.nextDouble() < probability) {
             return effective_attack_strength;
         } else {
             System.out.println("the attack missed!");
             return 0; // attack misses
         }
+    }
+
+    @Override
+    public int defenseFactor() {
+        return (int)(super.defenseFactor() * house.defenseMultiplier());
     }
 
 
@@ -266,21 +277,28 @@ public class Wizard extends Character {
         return success;
     }
 
-    public void useAccio(Character target) {
-
+    public boolean useAccio(Character target) {
+        boolean success = false;
         if (accio.size() > 0 && currentmanaPool > 0) {
             Spell spellAccio = accio.get(0);
+
+            if (target.getName() == "Basilic") {
+                new_HP = target.getCurrentHP() - accioDmg;
+            } else {
+                new_HP = target.getCurrentHP() - 0;
+            }
+
             new_HP = target.getCurrentHP() - accioDmg;
             if (new_HP < 0)
                 new_HP = 0;
             target.setCurrentHP(new_HP);
             currentmanaPool -= accioManaUsage;
             accio.remove(0);
+            success = true;
 
-        } else {
-            System.out.println(YELLOW_BOLD_BRIGHT + "You can't cast accio anymore");
         }
-
+        minMana();
+        return success;
     }
 
 

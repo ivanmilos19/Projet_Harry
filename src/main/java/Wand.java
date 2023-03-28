@@ -7,7 +7,7 @@ import java.util.Scanner;
 @Data
 public class Wand {
     private int height;
-    private String size = null;
+    private int size;
 
     Core core;
 
@@ -16,13 +16,13 @@ public class Wand {
     private static  Core cores[] = { Core.DRAGON_HEARTSTRING, Core.UNICORN_HAIR, Core.PHOENIX_FEATHER };
     private void determineWandSize() {
         if (height <= 165) {
-            this.size = "an 8 inch";
+            this.size = 8 ;
         }
         else if (height > 165 && height < 185) {
-            this.size = "an 11 inch";
+            this.size = 11;
         }
         else if (height >= 185) {
-            this.size = "a 14 inch";
+            this.size = 14;
         }
 
     }
@@ -53,7 +53,7 @@ public class Wand {
         int index = Arrays.asList(qualities).indexOf(playerChoice);
         Core core = cores[index];
 
-        System.out.println("You have acquired " + size + " wand with a " + core.name().toLowerCase().replace("_", " ") + " core");
+        System.out.println("You have a: " + size + " inch wand with a " + core.name().toLowerCase().replace("_", " ") + " core");
 
 
     }

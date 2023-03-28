@@ -24,7 +24,7 @@ public  class Main {
                 .baseHP(3000)
                 .level(1)
                 .accuracy(0.85 + house.precision())
-                .defense(2 + house.defenseMultiplier())
+
 
                 .house(sortingHat.getHouse())
 
@@ -41,14 +41,14 @@ public  class Main {
                 .currentmanaPool(100)
 
                 .wingardiumManaUsage(40)
-                .wingardiumCrit(250)
+                .wingardiumCrit(20)
                 .wingardiumDmg(50)
 
                 .expectoCrit(99999)
                 .expectoDmg(60)
                 .expectoManaUsage(30)
 
-                .accioDmg(0)
+                .accioDmg(150)
                 .accioManaUsage(10)
 
 
@@ -62,8 +62,7 @@ public  class Main {
 
         // add spells
         wizard.addSpell(new Spell());
-        wizard.addSpell(new Spell());
-        wizard.addSpell(new Spell());
+
 
        /* wizard.Pet();
         Wand wand = new Wand();
@@ -76,17 +75,41 @@ public  class Main {
         System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
         System.out.println(CYAN_BOLD_BRIGHT + "A troll is roaming in the bathroom ! Will you be able to defeat him ?");
 
-        ArrayList<Boss> Troll = new ArrayList<>();
 
-        Troll.add(Boss.builder()
+
+       Boss troll = Boss.builder()
                 .currentHP(500)
                 .baseHP(500)
                 .attack_strength(30)
                 .name("Troll")
-                .build());
+                .build();
 
 
-        levelTroll.battle(wizard, Troll);
+        levelTroll.battle(wizard, troll);
+
+
+        ////////// LEVEL 2 //////////////
+        LevelBasilic levelBasilic = new LevelBasilic();
+
+
+        System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
+        System.out.println(CYAN_BOLD_BRIGHT + "The basilic has escaped. Will you use the sword of Godric to slay him ? Or use one of his teeth to destroy Tom Riddle's journal ?");
+
+        if (wizard.getHouse().canUseSword()) {
+            System.out.println(CYAN_BOLD_BRIGHT + "You have acquired Gryffondor's legendary sword ! Your attacks will deal more damage.");
+        }
+
+
+        Boss basilic = Boss.builder()
+                .currentHP(700)
+                .baseHP(700)
+                .attack_strength(40)
+                .name("Basilic")
+                .build();
+
+
+        levelBasilic.battle(wizard, basilic);
+
 
 
         ////////// LEVEL 3 //////////////
@@ -118,38 +141,35 @@ public  class Main {
                     .build());
 
             LevelDementor levelDementor = new LevelDementor();
-            levelDementor.battle(wizard, dementors);
+           // levelDementor.battle(wizard, dementors);
         }
 
         ////////// LEVEL 4 //////////////
+
         if (wizard.isAlive()) {
             System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
             System.out.println(CYAN_BOLD_BRIGHT + "Voldemort and Pettigrow are here! you should flee away before it's too late, luckily the Portolion is here, you remember a spell that allows you to pull objects to you...\"");
 
-            ArrayList<Enemy> hangleton = new ArrayList<>();
 
-            hangleton.add(Enemy.builder()
+
+            Boss voldemort = Boss.builder()
                     .currentHP(600)
                     .baseHP(600)
                     .attack_strength(50)
                     .name("Pettigrow")
-                    .build());
-
-            hangleton.add(Enemy.builder()
-                    .name("Portolion")
-                    .build());
+                    .build();
 
 
-            hangleton.add(Enemy.builder()
+            Enemy pettigrow = Enemy.builder()
                     .baseHP(5000)
                     .currentHP(5000)
                     .attack_strength(20)
                     .name("Voldemort")
-                    .build());
+                    .build();
 
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            levelHangleton.battle(wizard, hangleton);
+            levelHangleton.battle(wizard, voldemort, pettigrow);
         }
     }
 }
