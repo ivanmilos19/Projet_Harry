@@ -166,9 +166,14 @@ public  class Main {
                     .name("Pettigrow")
                     .build());
 
+            Hangleton.add(Boss.builder()
+                    .name("Portoloin")
+                    .build());
+
+
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            //levelHangleton.battle(wizard, Hangleton);
+            levelHangleton.battle(wizard, Hangleton);
         }
 
         ////////// LEVEL 5 //////////////

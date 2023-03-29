@@ -255,6 +255,11 @@ public class Wizard extends Character {
             wingardiumLeviosa.remove(0);
             success = true;
 
+            Random rand = new Random();
+            double probability = accuracy; // 90% chance of hitting
+
+
+
         }
         minMana();
         return success;

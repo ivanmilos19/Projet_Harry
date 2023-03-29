@@ -18,15 +18,17 @@ public class LevelHangleton {
     Scanner scanner = new Scanner(System.in);
 
 
-    public void battle(Wizard wizard, ArrayList<Boss> Hangleton) {
+    public void battle(Wizard wizard, ArrayList<Boss> bosses) {
         int playerChoice = 0;
         while (true) {
 
-            String[] enemy_names = new String[Hangleton.size()];
+            String[] enemy_names = new String[bosses.size()];
             int i = 0;
-            for (Boss hangleton: Hangleton) {
-                enemy_names[i++] = hangleton.getName();
+            for (Boss boss: bosses) {
+                enemy_names[i++] = boss.getName();
             }
+
+
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
@@ -34,8 +36,10 @@ public class LevelHangleton {
                     + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
-            for (Boss hangleton: Hangleton) {
-                System.out.print(RED_BOLD_BRIGHT + hangleton.getName() + ": " + hangleton.getCurrentHP() + "/" + hangleton.getBaseHP() + " ❤" + newLine );
+            for (Boss boss: bosses) {
+                if (boss.getName() == "Portoloin")
+                    continue;
+                System.out.print(RED_BOLD_BRIGHT + boss.getName() + ": " + boss.getCurrentHP() + "/" + boss.getBaseHP() + " ❤" + newLine );
             }
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Basic spell", "Defend", "Inventory", "Spell"})).readInputByNumber();
@@ -49,7 +53,7 @@ public class LevelHangleton {
                     continue;
 
 
-                wizard.attack(Hangleton.get(target_enemy));
+                wizard.attack(bosses.get(target_enemy));
 
             }
             else if (playerChoice == 2) { // Defend
@@ -87,14 +91,15 @@ public class LevelHangleton {
                 if (reader.noopChosen())
                     continue;
 
-                reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to cast spell on" + newLine, enemy_names);
+                reader = new InputReaderWithNoop(RESET + newLine + "Choose an target to cast spell on" + newLine, enemy_names);
+
                 target_enemy = reader.readInputByNumber();
 
                 if (reader.noopChosen())
                     continue;
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
-                    boolean success = wizard.useWingardiumLeviosa(Hangleton.get(target_enemy - 1));
+                    boolean success = wizard.useWingardiumLeviosa(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
@@ -102,14 +107,18 @@ public class LevelHangleton {
 
 
                 } else if (playerChoice == 2) {
-                    boolean success = wizard.useAccio(Hangleton.get(target_enemy - 1));
-                    if (!success){
+                    Boss boss = bosses.get(target_enemy - 1);
+                    boolean success = wizard.useAccio(boss);
+                    if (success) {
+                        if (boss.getName() == "Portoloin")
+                            break; // you have escaped
+                    } else {
                         System.out.println("can't cast accio  no more");
                         continue;
                     }
 
                 } else if (playerChoice == 3) {
-                    boolean success = wizard.useExpecto(Hangleton.get(target_enemy - 1));
+                    boolean success = wizard.useExpecto(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast expecto patronum no more");
                         continue;
@@ -123,8 +132,8 @@ public class LevelHangleton {
 
 
             boolean allFoesDead = true;
-            for (Boss hangleton: Hangleton) {
-                allFoesDead = allFoesDead && hangleton.isDead();
+            for (Boss boss: bosses) {
+                allFoesDead = allFoesDead && boss.isDead();
             }
 
             if (allFoesDead) {
@@ -133,9 +142,9 @@ public class LevelHangleton {
             }
 
             // now the protagonist is attacked
-            for (Boss hangleton: Hangleton) {
-                if (hangleton.isAlive())
-                    hangleton.attack(wizard);
+            for (Boss boss: bosses) {
+                if (boss.isAlive())
+                    boss.attack(wizard);
 
             }
 

@@ -19,9 +19,8 @@ public class LevelDolores {
 
     public void battle(Wizard wizard, Enemy dolores) {
         int playerChoice = 0;
-        int turnCounter = 0;
+        int turn_number = 1;
         while (true) {
-
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
@@ -47,12 +46,22 @@ public class LevelDolores {
 
             } else if (playerChoice == 3) { // Potion
 
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
+                String [] inventory_choices = {"Health Potion | x"
                         + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
                         + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
-                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"};
 
+                if (turn_number >= 3)
+                {
+                    String [] inventory_choices_ext = new String[inventory_choices.length + 1];
+                    for (int i = 0; i < inventory_choices.length; i++) {
+                        inventory_choices_ext[i] = inventory_choices[i];
+                    }
+                    inventory_choices_ext[inventory_choices_ext.length - 1] = "Fireworks";
+                    inventory_choices = inventory_choices_ext;
+                }
 
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, inventory_choices);
                 playerChoice = reader.readInputByNumber();
                 if (reader.noopChosen())
                     continue;
@@ -69,6 +78,10 @@ public class LevelDolores {
                     wizard.useManaPotion();
                     continue;
                 }
+                if (playerChoice == 4) { // fireworks used - end of level
+                    break;
+                }
+
 
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
@@ -121,9 +134,10 @@ public class LevelDolores {
                 return;
             }
 
-            turnCounter ++;
+
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
 
+            turn_number++;
         }
 
         Rewards rewards  = new Rewards();
