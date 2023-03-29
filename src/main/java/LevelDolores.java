@@ -127,7 +127,7 @@ public class LevelDolores {
             dolores.attack(wizard);
 
 
-            System.out.println(RED_BOLD_BRIGHT+"You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
+            System.out.println(RED_BOLD_BRIGHT+"You took " + wizard.getLastDamageTaken() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");

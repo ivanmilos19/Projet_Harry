@@ -8,12 +8,11 @@ import lombok.experimental.SuperBuilder;
 public abstract class Character {
 
 
-    protected int currentHP;
+    private int currentHP;
+    private int previousHP;
     private int baseHP;
     private int attack_strength;
     private String name;
-
-
 
     /** the character attacks the given target */
     public void attack(Character target)
@@ -22,10 +21,14 @@ public abstract class Character {
         if (target.isDefending) {
             damage /= defenseFactor();
         }
-        int new_HP = target.currentHP - damage;
-        if (new_HP < 0)
-            new_HP = 0;
-        target.currentHP = new_HP;
+        if (damage > target.currentHP)
+            damage = target.currentHP;
+        target.previousHP = target.currentHP;
+        target.currentHP -= damage;
+    }
+
+    int getLastDamageTaken() {
+        return previousHP - currentHP;
     }
 
     private boolean isDefending;

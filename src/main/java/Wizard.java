@@ -118,7 +118,7 @@ public class Wizard extends Character {
             currentDamagePotion = null;
         }
         Random rand = new Random();
-        double probability = accuracy; // 90% chance of hitting
+        double probability = accuracy; // hitting accuracy
 
 
         if (rand.nextDouble() < probability) {
@@ -188,7 +188,7 @@ public class Wizard extends Character {
         // use the first available potion in my collection of potions
         if (healthPotions.size() > 0) {
             Potion potion = healthPotions.get(0);
-            currentHP +=  potion.healthImprovement();
+            setCurrentHP(getCurrentHP() + potion.healthImprovement());
             // now remove the used potion
             healthPotions.remove(0);
             maxHealth();
@@ -348,8 +348,8 @@ public class Wizard extends Character {
         String newLine = System.getProperty("line.separator");
         String instructions = newLine + "Choose your pet";
         InputReader qualityReader = new InputReader(instructions, choice);
-        String playerChoice = qualityReader.readInput();
-        int index = Arrays.asList(choice).indexOf(playerChoice);
+        int playerChoice = qualityReader.readInputByNumber();
+        int index = playerChoice - 1;
         Pet pet = pets[index];
         System.out.println("A " + pet.name().toLowerCase().replace("_", " ") + " will accompany you.");
     }

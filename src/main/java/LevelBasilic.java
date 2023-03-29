@@ -99,7 +99,7 @@ public class LevelBasilic {
             // now the protagonist is attacked
             basilic.attack(wizard);
 
-            System.out.println(RED_BOLD_BRIGHT + "You took " + (wizard.getCurrentHP() - wizard.getBaseHP()) + " damage !");
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");

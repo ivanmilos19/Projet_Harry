@@ -44,12 +44,12 @@ public class LevelDementor {
             if (playerChoice == 1) { // Attack
 
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names);
-                playerChoice = reader.readInputByNumber();
+                target_enemy = reader.readInputByNumber();
                 if (reader.noopChosen())
                     continue;
 
 
-                wizard.attack(dementors.get(target_enemy));
+                wizard.attack(dementors.get(target_enemy - 1));
 
             }
             else if (playerChoice == 2) { // Defend
@@ -138,7 +138,7 @@ public class LevelDementor {
 
             wizard.stopDefending(); // the wizard's defense is back to normal
 
-            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.damageInflicted() + " damage !");
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");

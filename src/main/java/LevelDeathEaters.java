@@ -157,7 +157,7 @@ public class LevelDeathEaters {
 
             wizard.stopDefending(); // the wizard's defense is back to normal
 
-            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.damageInflicted() + " damage !");
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");

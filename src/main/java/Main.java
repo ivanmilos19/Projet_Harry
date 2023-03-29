@@ -21,6 +21,7 @@ public  class Main {
 
         Wizard wizard = Wizard.builder()
                 .currentHP(3000)
+                .previousHP(3000)
                 .baseHP(3000)
                 .level(1)
                 .accuracy(0.85 + house.precision())
@@ -35,7 +36,7 @@ public  class Main {
                 .accio(new ArrayList<>())
                 .sectumsempra(new ArrayList<>(4))
 
-                .attack_strength((int)(111 * house.attackMultiplier()))
+                .attack_strength((int)(1211 * house.attackMultiplier()))
                 .manaPool(100)
                 .currentmanaPool(100)
 
@@ -63,9 +64,9 @@ public  class Main {
         wizard.addSpell(new Spell());
 
 
-       /* wizard.Pet();
+        wizard.Pet();
         Wand wand = new Wand();
-        wand.Wand(); */
+        wand.Wand();
 
         ////////// LEVEL 1 //////////////
         LevelTroll levelTroll = new LevelTroll();
@@ -84,7 +85,7 @@ public  class Main {
                 .build();
 
 
-        //levelTroll.battle(wizard, troll);
+        levelTroll.battle(wizard, troll);
 
 
         ////////// LEVEL 2 //////////////
@@ -107,7 +108,7 @@ public  class Main {
                 .build();
 
 
-        //levelBasilic.battle(wizard, basilic);
+        levelBasilic.battle(wizard, basilic);
 
 
 
@@ -140,7 +141,7 @@ public  class Main {
                     .build());
 
             LevelDementor levelDementor = new LevelDementor();
-           // levelDementor.battle(wizard, dementors);
+            levelDementor.battle(wizard, dementors);
         }
 
         ////////// LEVEL 4 //////////////
