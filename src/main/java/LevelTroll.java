@@ -33,7 +33,7 @@ public class LevelTroll {
 
 
 
-            playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Potion", "Spell"})).readInputByNumber();
+            playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Inventory", "Spell"})).readInputByNumber();
 
 
             if (playerChoice == 1) { // Attack

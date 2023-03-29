@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import java.util.ArrayList;
+
 @Data
 @SuperBuilder
 public class Wizard extends Character {
@@ -78,6 +79,10 @@ public class Wizard extends Character {
 
     private int accioDmg;
     private int accioManaUsage;
+
+
+    private int sectumsempraDmg;
+    private int sectumsempraManaUsg;
 
 
 
@@ -175,6 +180,7 @@ public class Wizard extends Character {
         wingardiumLeviosa.add(spell);
         expectoPatronum.add(spell);
         accio.add(spell);
+        sectumsempra.add(spell);
     }
 
 
@@ -237,7 +243,6 @@ public class Wizard extends Character {
         boolean success = false;
         if (wingardiumLeviosa.size() > 0 && currentmanaPool > 0 ) {
             Spell wingardium = wingardiumLeviosa.get(0);
-
             if (target.getName() == "Troll" ) {
                 new_HP = target.getCurrentHP() - wingardiumCrit;
             } else {
@@ -300,6 +305,32 @@ public class Wizard extends Character {
         minMana();
         return success;
     }
+
+
+    public boolean useSectumsempra(Character target) {
+        boolean success = false;
+        if (sectumsempra.size() > 0 && currentmanaPool > 0) {
+            Spell spellAccio = sectumsempra.get(0);
+
+            if (target.getName() == "Basilic") {
+                new_HP = target.getCurrentHP() - sectumsempraDmg;
+            } else {
+                new_HP = target.getCurrentHP() - 0;
+            }
+
+            new_HP = target.getCurrentHP() - sectumsempraDmg;
+            if (new_HP < 0)
+                new_HP = 0;
+            target.setCurrentHP(new_HP);
+            currentmanaPool -= sectumsempraManaUsg;
+            sectumsempra.remove(0);
+            success = true;
+
+        }
+        minMana();
+        return success;
+    }
+
 
 
 

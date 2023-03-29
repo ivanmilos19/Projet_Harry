@@ -24,8 +24,6 @@ public  class Main {
                 .baseHP(3000)
                 .level(1)
                 .accuracy(0.85 + house.precision())
-
-
                 .house(sortingHat.getHouse())
 
                 .healthPotions(new ArrayList<>())
@@ -35,8 +33,9 @@ public  class Main {
                 .wingardiumLeviosa(new ArrayList<>())
                 .expectoPatronum(new ArrayList<>())
                 .accio(new ArrayList<>())
+                .sectumsempra(new ArrayList<>(4))
 
-                .attack_strength((int)(12311 * house.attackMultiplier()))
+                .attack_strength((int)(111 * house.attackMultiplier()))
                 .manaPool(100)
                 .currentmanaPool(100)
 
@@ -85,7 +84,7 @@ public  class Main {
                 .build();
 
 
-        levelTroll.battle(wizard, troll);
+        //levelTroll.battle(wizard, troll);
 
 
         ////////// LEVEL 2 //////////////
@@ -108,7 +107,7 @@ public  class Main {
                 .build();
 
 
-        levelBasilic.battle(wizard, basilic);
+        //levelBasilic.battle(wizard, basilic);
 
 
 
@@ -150,26 +149,73 @@ public  class Main {
             System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
             System.out.println(CYAN_BOLD_BRIGHT + "Voldemort and Pettigrow are here! you should flee away before it's too late, luckily the Portolion is here, you remember a spell that allows you to pull objects to you...\"");
 
+            ArrayList<Boss> Hangleton = new ArrayList<>();
 
-
-            Boss voldemort = Boss.builder()
-                    .currentHP(600)
-                    .baseHP(600)
-                    .attack_strength(50)
-                    .name("Pettigrow")
-                    .build();
-
-
-            Enemy pettigrow = Enemy.builder()
+            Hangleton.add(Boss.builder()
                     .baseHP(5000)
                     .currentHP(5000)
-                    .attack_strength(20)
+                    .attack_strength(150)
                     .name("Voldemort")
-                    .build();
+                    .build());
+
+
+            Hangleton.add(Boss.builder()
+                    .baseHP(700)
+                    .currentHP(700)
+                    .attack_strength(20)
+                    .name("Pettigrow")
+                    .build());
 
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            levelHangleton.battle(wizard, voldemort, pettigrow);
+            //levelHangleton.battle(wizard, Hangleton);
+        }
+
+        ////////// LEVEL 5 //////////////
+        if (wizard.isAlive()) {
+
+            System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
+            System.out.println(CYAN_BOLD_BRIGHT + "Distract Dolores so you can use the fireworks later on.");
+
+
+            Enemy dolores = Enemy.builder()
+                    .currentHP(2000)
+                    .baseHP(2000)
+                    .attack_strength(60)
+                    .name("Dolores Ombrage")
+                    .build();
+
+            LevelDolores levelDolores = new LevelDolores();
+            //levelDolores.battle(wizard, dolores);
+        }
+
+        ////////// LEVEL 6 //////////////
+
+
+        if (wizard.isAlive()) {
+            System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
+            System.out.println(CYAN_BOLD_BRIGHT + "The Death Eaters have invaded Hogwarts. You learned from the Half Blood prince a powerful spell, use it wisely...");
+
+            ArrayList<Enemy> deathEaters = new ArrayList<>();
+
+            deathEaters.add(Enemy.builder()
+                    .currentHP(400)
+                    .baseHP(400)
+                    .attack_strength(50)
+                    .name("Death Eater ")
+                    .build());
+
+
+            deathEaters.add(Enemy.builder()
+                    .baseHP(400)
+                    .currentHP(400)
+                    .attack_strength(50)
+                    .name("Death Eater ")
+                    .build());
+
+
+            LevelDeathEaters levelDeathEaters = new LevelDeathEaters();
+            levelDeathEaters.battle(wizard, deathEaters);
         }
     }
 }
