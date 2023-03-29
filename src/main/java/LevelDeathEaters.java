@@ -54,12 +54,12 @@ public class LevelDeathEaters {
             if (playerChoice == 1) { // Attack
 
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose an enemy to attack" + newLine, enemy_names);
-                playerChoice = reader.readInputByNumber();
+                target_enemy = reader.readInputByNumber();
                 if (reader.noopChosen())
                     continue;
 
 
-                wizard.attack(deathEaters.get(target_enemy));
+                wizard.attack(deathEaters.get(target_enemy - 1));
 
             }
             else if (playerChoice == 2) { // Defend
