@@ -102,19 +102,7 @@ public class Wizard extends Character {
     @Override
     public String getName() { return "Wizard"; }
 
-    /* @Override
-     public int damageInflicted() {
-         int effective_attack_strength = getAttack_strength();
-         if (damagePotionTurnsLeft > 0) {
-             effective_attack_strength += currentHealthPotion.attackImprovement();
-             damagePotionTurnsLeft--;
-         }
-         else
-             currentHealthPotion = null;
-         // potion has been used up
-         return effective_attack_strength;
 
-     }*/
     @Override
     public int damageInflicted() {
         int effective_attack_strength = getAttack_strength();
