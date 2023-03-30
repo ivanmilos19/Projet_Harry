@@ -108,6 +108,8 @@ public class LevelTroll {
 
         }
 
+
+
         Rewards rewards  = new Rewards();
         rewards.getRewards(wizard);
 

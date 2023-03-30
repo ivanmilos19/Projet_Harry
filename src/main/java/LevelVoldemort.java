@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @Data
-public class LevelDeathEaters {
+public class LevelVoldemort {
     public static final String RESET = "\033[0m";  // Text Reset
     public static final String BLACK_BOLD_BRIGHT = "\033[1;90m"; // BLACK
     public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
@@ -18,16 +18,16 @@ public class LevelDeathEaters {
     Scanner scanner = new Scanner(System.in);
 
 
-    public void battle(Wizard wizard, ArrayList<Enemy> deathEaters) {
+    public void battle(Wizard wizard, ArrayList<Boss> bosses) {
         int playerChoice;
         while (true) {
 
 
 
-            String[] enemy_names = new String[deathEaters.size()];
+            String[] enemy_names = new String[bosses.size()];
             int i = 0;
-            for (Enemy deathEater: deathEaters) {
-                enemy_names[i++] = deathEater.getName();
+            for (Boss boss: bosses) {
+                enemy_names[i++] = boss.getName();
             }
 
             if (wizard.getHouse().canJoinEnemy()) {
@@ -44,8 +44,8 @@ public class LevelDeathEaters {
                     + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
-            for (Enemy deathEater: deathEaters) {
-                System.out.print(RED_BOLD_BRIGHT + deathEater.getName() + ": " + deathEater.getCurrentHP() + "/" + deathEater.getBaseHP() + " ❤" + newLine );
+            for (Boss boss : bosses) {
+                System.out.print(RED_BOLD_BRIGHT + boss.getName() + ": " + boss.getCurrentHP() + "/" + boss.getBaseHP() + " ❤" + newLine );
             }
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Basic spell", "Defend", "Potion", "Spell"})).readInputByNumber();
@@ -59,7 +59,7 @@ public class LevelDeathEaters {
                     continue;
 
 
-                wizard.attack(deathEaters.get(target_enemy - 1));
+                wizard.attack(bosses.get(target_enemy - 1));
 
             }
             else if (playerChoice == 2) { // Defend
@@ -106,7 +106,7 @@ public class LevelDeathEaters {
                     continue;
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
-                    boolean success = wizard.useWingardiumLeviosa(deathEaters.get(target_enemy - 1));
+                    boolean success = wizard.useWingardiumLeviosa(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
@@ -114,21 +114,21 @@ public class LevelDeathEaters {
 
 
                 } else if (playerChoice == 2) {
-                    boolean success = wizard.useAccio(deathEaters.get(target_enemy - 1));
+                    boolean success = wizard.useAccio(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast accio  no more");
                         continue;
                     }
 
                 } else if (playerChoice == 3) {
-                    boolean success = wizard.useExpecto(deathEaters.get(target_enemy - 1));
+                    boolean success = wizard.useExpecto(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast expecto patronum no more");
                         continue;
                     }
 
                 } else if (playerChoice == 4) {
-                    boolean success = wizard.useSectumsempra(deathEaters.get(target_enemy - 1));
+                    boolean success = wizard.useSectumsempra(bosses.get(target_enemy - 1));
                     if (!success){
                         System.out.println("can't cast sectumsempra no more");
                         continue;
@@ -139,8 +139,8 @@ public class LevelDeathEaters {
 
 
             boolean allFoesDead = true;
-            for (Enemy dementor: deathEaters) {
-                allFoesDead = allFoesDead && dementor.isDead();
+            for (Boss boss: bosses) {
+                allFoesDead = allFoesDead && boss.isDead();
             }
 
             if (allFoesDead) {
@@ -149,9 +149,9 @@ public class LevelDeathEaters {
             }
 
             // now the protagonist is attacked
-            for (Enemy dementor: deathEaters) {
-                if (dementor.isAlive())
-                    dementor.attack(wizard);
+            for (Boss boss: bosses) {
+                if (boss.isAlive())
+                    boss.attack(wizard);
 
             }
 

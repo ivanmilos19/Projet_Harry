@@ -140,6 +140,8 @@ public class LevelDolores {
             turn_number++;
         }
 
+        System.out.println(CYAN_BOLD_BRIGHT + "You used the fireworks and escaped!");
+
         Rewards rewards  = new Rewards();
         rewards.getRewards(wizard);
 

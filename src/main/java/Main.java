@@ -64,7 +64,7 @@ public  class Main {
         wizard.addSpell(new Spell());
 
 
-        wizard.Pet();
+        //wizard.Pet();
         Wand wand = new Wand();
         wand.Wand();
 
@@ -85,7 +85,7 @@ public  class Main {
                 .build();
 
 
-        levelTroll.battle(wizard, troll);
+        //levelTroll.battle(wizard, troll);
 
 
         ////////// LEVEL 2 //////////////
@@ -108,7 +108,7 @@ public  class Main {
                 .build();
 
 
-        levelBasilic.battle(wizard, basilic);
+        //levelBasilic.battle(wizard, basilic);
 
 
 
@@ -141,7 +141,7 @@ public  class Main {
                     .build());
 
             LevelDementor levelDementor = new LevelDementor();
-            levelDementor.battle(wizard, dementors);
+            //levelDementor.battle(wizard, dementors);
         }
 
         ////////// LEVEL 4 //////////////
@@ -174,7 +174,7 @@ public  class Main {
 
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            levelHangleton.battle(wizard, Hangleton);
+            //levelHangleton.battle(wizard, Hangleton);
         }
 
         ////////// LEVEL 5 //////////////
@@ -221,8 +221,39 @@ public  class Main {
 
 
             LevelDeathEaters levelDeathEaters = new LevelDeathEaters();
-            levelDeathEaters.battle(wizard, deathEaters);
+            //levelDeathEaters.battle(wizard, deathEaters);
         }
+
+        ////////// LEVEL 7 //////////////
+
+
+        if (wizard.isAlive()) {
+            System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
+            System.out.println(CYAN_BOLD_BRIGHT + "It's time to face Voldemort and end this. But be careful, not only is Bellatrix with him, you will also need to avoid voldemort's avada kedavra with expeliarmus.");
+
+
+            ArrayList<Boss> bosses = new ArrayList<>();
+
+            bosses.add(Boss.builder()
+                    .currentHP(2000)
+                    .baseHP(2000)
+                    .attack_strength(50)
+                    .name("Bellatrix Lestrange ")
+                    .build());
+
+            bosses.add(Boss.builder()
+                    .currentHP(5000)
+                    .baseHP(5000)
+                    .attack_strength(150)
+                    .name("Voldemort")
+                    .build());
+
+
+            LevelVoldemort levelVoldemort= new LevelVoldemort();
+            levelVoldemort.battle(wizard, bosses);
+        }
+
     }
 }
+
 

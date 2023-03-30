@@ -163,6 +163,8 @@ public class LevelHangleton {
 
         }
 
+        System.out.println(CYAN_BOLD_BRIGHT + "You managed to escape with the portoloin. But voldemort doesn't give up so easily");
+
         Rewards rewards = new Rewards();
         rewards.getRewards(wizard);
 
