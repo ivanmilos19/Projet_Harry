@@ -51,7 +51,7 @@ public class LevelDolores {
                         + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
                         + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"};
 
-                if (turn_number >= 3)
+                if (turn_number >= 5)
                 {
                     String [] inventory_choices_ext = new String[inventory_choices.length + 1];
                     for (int i = 0; i < inventory_choices.length; i++) {
@@ -124,7 +124,13 @@ public class LevelDolores {
                 break;
             }
 
-            dolores.attack(wizard);
+            if (dolores.canThrowBook()) {
+                dolores.attack(wizard);
+                System.out.println(RED_BOLD_BRIGHT + "Dolores threw a book in your face and dealt big damage !");
+            } else {
+                dolores.attack(wizard);
+            }
+            dolores.resetBook();
 
 
             System.out.println(RED_BOLD_BRIGHT+"You took " + wizard.getLastDamageTaken() + " damage !");
@@ -136,11 +142,11 @@ public class LevelDolores {
 
 
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
-
+            dolores.randomThrowBook();
             turn_number++;
         }
 
-        System.out.println(CYAN_BOLD_BRIGHT + "You used the fireworks and escaped!");
+        System.out.println(CYAN_BOLD_BRIGHT + "You used the fireworks and created chaos ! Dolores has learned her lesson." +newLine );
 
         Rewards rewards  = new Rewards();
         rewards.getRewards(wizard);

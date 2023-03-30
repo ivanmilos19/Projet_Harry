@@ -10,6 +10,10 @@ import java.util.ArrayList;
 @SuperBuilder
 public class Wizard extends Character {
     public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";// YELLOW
+    public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
+    public static final String RESET = "\033[0m";  // Text Reset
+
+
 
 
     ////////////// Arrays lists ////////////////////
@@ -65,7 +69,7 @@ public class Wizard extends Character {
 
     House house;
 
-    boolean joinedEnemy;
+    private boolean joinedEnemy;
 
 
     ////////////// Spells attributes ////////////////////
@@ -117,7 +121,7 @@ public class Wizard extends Character {
         if (rand.nextDouble() < probability) {
             return effective_attack_strength;
         } else {
-            System.out.println("Voldemort's avada kedavra missed!");
+            System.out.println(YELLOW_BOLD_BRIGHT + "Your attack missed");
             return 0; // attack misses
         }
     }
@@ -251,9 +255,6 @@ public class Wizard extends Character {
             wingardiumLeviosa.remove(0);
             success = true;
 
-            Random rand = new Random();
-            double probability = accuracy; // 90% chance of hitting
-
 
 
         }
@@ -366,7 +367,7 @@ public class Wizard extends Character {
     public void Pet(){
         Scanner scanner = new Scanner(System.in);
         String newLine = System.getProperty("line.separator");
-        String instructions = newLine + "Choose your pet";
+        String instructions = newLine + CYAN_BOLD_BRIGHT +"Choose your pet" +RESET;
         InputReader qualityReader = new InputReader(instructions, choice);
         int playerChoice = qualityReader.readInputByNumber();
         int index = playerChoice - 1;

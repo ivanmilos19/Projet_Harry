@@ -2,6 +2,9 @@ import lombok.Data;
 import java.util.Arrays;
 @Data
 public class SortingHat {
+    public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
+    public static final String RESET = "\033[0m";  // Text Reset
+
 
     private House house;
 
@@ -18,7 +21,7 @@ public class SortingHat {
 
     public SortingHat() {
         String newLine = System.getProperty("line.separator");
-        String instructions = newLine + "Welcome to Hogwarts ! The sorting hat will choose which house you will belong to. If you could describe yourself in one word which of the following qualities would you choose ?";
+        String instructions = newLine + CYAN_BOLD_BRIGHT +"Welcome to Hogwarts ! The sorting hat will choose which house you will belong to. If you could describe yourself in one word which of the following qualities would you choose ?" +RESET;
         InputReader qualityReader = new InputReader(instructions, qualities);
         int choice = qualityReader.readInputByNumber();
         String quality = qualities[choice - 1];

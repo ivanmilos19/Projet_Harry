@@ -23,7 +23,7 @@ public class LevelVoldemort {
         int playerChoice;
 
         while (true) {
-            boolean successExpe = false; // Expeliarmus cast successfully
+            boolean successExpelliarmus = false; // Expeliarmus cast successfully
 
 
             String[] enemy_names = new String[bosses.size()];
@@ -36,6 +36,7 @@ public class LevelVoldemort {
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
                     + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
+                    + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
                     + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
@@ -138,7 +139,7 @@ public class LevelVoldemort {
                         System.out.println("can't cast expelliarmus no more");
                         continue;
                     }
-                    successExpe = true;
+                    successExpelliarmus = true;
 
                 }
             }
@@ -157,17 +158,18 @@ public class LevelVoldemort {
 
 
             for (Boss boss: bosses) {
-                if (boss.getName() == "Voldemort")
-                    if (boss.isAlive() && !successExpe) {
+                    if (boss.isAlive() && !successExpelliarmus) {
                         if (boss.canUseAvada()) {
-                            boss.useAvadaKedavra(wizard);
+                            boss.attack(wizard);
                             System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you, you died...");
+                        } else {
+                            boss.attack(wizard);
                         }
                     }
 
-                    if (successExpe) {
+                    if (successExpelliarmus) {
                         if (wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
-                            System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores, you both have taken damage. ");
+                            System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores. You both have taken damage. ");
                             wizard.attack(boss);
                             boss.attack(wizard);
                         }
@@ -176,7 +178,7 @@ public class LevelVoldemort {
             }
 
 
-            successExpe = false;
+            successExpelliarmus = false;
             wizard.stopDefending(); // the wizard's defense is back to normal
 
             System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
@@ -191,10 +193,12 @@ public class LevelVoldemort {
 
 
             for (Boss boss: bosses) {
-                if (boss.getName() == "Voldemort") {
+                if (boss.getName() == "Voldemort" && boss.isAlive()) {
                     boss.RandomUseAvada();
                 }
             }
+
+
         }
     }
 }

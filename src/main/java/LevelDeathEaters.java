@@ -23,6 +23,18 @@ public class LevelDeathEaters {
         while (true) {
 
 
+            while (!wizard.isJoinedEnemy()) {
+                if (wizard.getHouse().canJoinEnemy()) {
+                    playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
+                    if (playerChoice == 1) {
+                        System.out.println(CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
+                        wizard.setJoinedEnemy(true);
+                        break;
+                    } else {
+                        wizard.setJoinedEnemy(true);
+                    }
+                }
+            }
 
             String[] enemy_names = new String[deathEaters.size()];
             int i = 0;
@@ -30,14 +42,6 @@ public class LevelDeathEaters {
                 enemy_names[i++] = deathEater.getName();
             }
 
-            if (wizard.getHouse().canJoinEnemy()) {
-                playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
-                if (playerChoice == 1) {
-                    System.out.println( CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
-                    wizard.setJoinedEnemy(true);
-                    break;
-                }
-            }
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"

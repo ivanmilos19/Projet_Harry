@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 @Data
 public class Wand {
+
+    public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
+    public static final String RESET = "\033[0m";  // Text Reset
+
+
     private int height;
     private int size;
 
@@ -32,7 +37,7 @@ public class Wand {
     public Wand() {
         Scanner scanner = new Scanner(System.in);
         String newLine = System.getProperty("line.separator");
-        System.out.println(newLine + "Time for you to get your wand. How tall are you ? (Write your height in centimeters)");
+        System.out.println(newLine + CYAN_BOLD_BRIGHT +"Time for you to get your wand. How tall are you ? (Write your height in centimeters)" +RESET);
         do {
             try {
                 height = scanner.nextInt();
@@ -47,7 +52,7 @@ public class Wand {
         determineWandSize();
 
 
-        String instructions = newLine + "Choose the property of your core:";
+        String instructions = newLine + CYAN_BOLD_BRIGHT+ "Choose the property of your core:" +RESET;
         InputReader qualityReader = new InputReader(instructions, qualities);
         int playerChoice = qualityReader.readInputByNumber();
         int index = playerChoice - 1;

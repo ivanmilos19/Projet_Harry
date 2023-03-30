@@ -97,7 +97,13 @@ public class LevelBasilic {
             }
 
             // now the protagonist is attacked
-            basilic.attack(wizard);
+            if (basilic.canBite()) {
+                basilic.attack(wizard);
+                System.out.println(RED_BOLD_BRIGHT + "The basilic sank it's teeth into you and dealt big damage!");
+            } else {
+                basilic.attack(wizard);
+            }
+            basilic.resetBite();
 
             System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
 
@@ -108,7 +114,7 @@ public class LevelBasilic {
 
 
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
-
+            basilic.RandomBite();
 
         }
 
