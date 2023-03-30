@@ -20,11 +20,11 @@ public  class Main {
         House house = sortingHat.getHouse();
 
         Wizard wizard = Wizard.builder()
-                .currentHP(400)
-                .previousHP(400)
+                .currentHP(40000)
+                .previousHP(40000)
                 .baseHP(400)
                 .level(1)
-                .accuracy(12 + house.precision())
+                .accuracy(0.12 + house.precision())
                 .house(sortingHat.getHouse())
                 .joinedEnemy(false)
 
@@ -258,7 +258,7 @@ public  class Main {
 
 
             LevelDeathEaters levelDeathEaters = new LevelDeathEaters();
-             levelDeathEaters.battle(wizard, deathEaters);
+            //levelDeathEaters.battle(wizard, deathEaters);
         }
 
 

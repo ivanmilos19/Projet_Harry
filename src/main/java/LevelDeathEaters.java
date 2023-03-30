@@ -23,8 +23,8 @@ public class LevelDeathEaters {
         while (true) {
 
 
-            while (!wizard.isJoinedEnemy()) {
-                if (wizard.getHouse().canJoinEnemy()) {
+            if (wizard.getHouse().canJoinEnemy()) {
+                while (!wizard.isJoinedEnemy()) {
                     playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
                     if (playerChoice == 1) {
                         System.out.println(CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
