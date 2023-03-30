@@ -95,7 +95,7 @@ public  class Main {
                 .build();
 
 
-            //levelTroll.battle(wizard, troll);
+            levelTroll.battle(wizard, troll);
 
 
 

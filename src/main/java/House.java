@@ -8,7 +8,7 @@ public abstract class House {
 
     public double precision() { return 0; }
 
-    public boolean improvedPotions() { return false; }
+    public double potionImprovement() { return 1; }
 
     public boolean canUseSword() { return false; };
 

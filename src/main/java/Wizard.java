@@ -1,8 +1,6 @@
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Arrays;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -105,7 +103,7 @@ public class Wizard extends Character {
         if (house.canUseSword())
             effective_attack_strength *= 1.5;
         if (damagePotionTurnsLeft > 0) {
-            effective_attack_strength += currentDamagePotion.attackImprovement();
+            effective_attack_strength += currentDamagePotion.attackImprovement() *house.potionImprovement();
             damagePotionTurnsLeft--;
         } else {
             currentDamagePotion = null;
@@ -182,7 +180,9 @@ public class Wizard extends Character {
         // use the first available potion in my collection of potions
         if (healthPotions.size() > 0) {
             Potion potion = healthPotions.get(0);
-            setCurrentHP(getCurrentHP() + potion.healthImprovement());
+            int newHP = getCurrentHP();
+            newHP += potion.healthImprovement()*house.potionImprovement();
+            setCurrentHP(newHP);
             // now remove the used potion
             healthPotions.remove(0);
             maxHealth();
@@ -195,7 +195,7 @@ public class Wizard extends Character {
         // use the first available potion in my collection of potions
         if (manaPotions.size() > 0) {
             Potion potion = manaPotions.get(0);
-            currentmanaPool += potion.manaImprovement();
+            currentmanaPool += potion.manaImprovement() * house.potionImprovement();
             // now remove the used potion
             manaPotions.remove(0);
             maxMana();
