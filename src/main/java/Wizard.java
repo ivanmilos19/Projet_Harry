@@ -63,11 +63,9 @@ public class Wizard extends Character {
 
 
 
-    Wand core;
+    private Wand wand;
 
     House house;
-
-    private String wand;
 
 
     ////////////// Spells attributes ////////////////////
@@ -91,8 +89,6 @@ public class Wizard extends Character {
 
     private int expelliarmusDmg;
     private int expellarmusManaUsg;
-
-    public boolean successExpe;
 
     //////////// Potions //////////////
     private Potion currentDamagePotion = null;
@@ -121,7 +117,7 @@ public class Wizard extends Character {
         if (rand.nextDouble() < probability) {
             return effective_attack_strength;
         } else {
-            System.out.println("the attack missed!");
+            System.out.println("Voldemort's avada kedavra missed!");
             return 0; // attack misses
         }
     }
@@ -372,7 +368,7 @@ public class Wizard extends Character {
         InputReader qualityReader = new InputReader(instructions, choice);
         int playerChoice = qualityReader.readInputByNumber();
         int index = playerChoice - 1;
-        Pet pet = pets[index];
+        pet = pets[index];
         System.out.println("A " + pet.name().toLowerCase().replace("_", " ") + " will accompany you.");
     }
 

@@ -72,11 +72,9 @@ public  class Main {
         wizard.addSpell(new Spell());
         wizard.addSpell(new Spell());
 
-
-        //wizard.Pet();
-        //Wand wand = new Wand();
-        //wand.Wand();
-
+        wizard.Pet();
+        Wand wand = new Wand();
+        wizard.setWand(wand);
 
 
         ////////// LEVEL 1 //////////////
@@ -97,7 +95,7 @@ public  class Main {
                 .build();
 
 
-            levelTroll.battle(wizard, troll);
+            //levelTroll.battle(wizard, troll);
 
 
 

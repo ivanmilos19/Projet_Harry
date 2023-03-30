@@ -21,7 +21,9 @@ public class LevelVoldemort {
 
     public void battle(Wizard wizard, ArrayList<Boss> bosses) {
         int playerChoice;
+
         while (true) {
+            boolean successExpe = false; // Expeliarmus cast successfully
 
 
             String[] enemy_names = new String[bosses.size()];
@@ -84,6 +86,7 @@ public class LevelVoldemort {
 
 
             } else if (playerChoice == 4) { // Spell
+
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
                         + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining","Accio | x"
                         + wizard.getNumberAccioSpells(wizard.getAccio()) + " remaining", "Expecto Patronum | x"
@@ -135,7 +138,7 @@ public class LevelVoldemort {
                         System.out.println("can't cast expelliarmus no more");
                         continue;
                     }
-                    wizard.successExpe = true;
+                    successExpe = true;
 
                 }
             }
@@ -155,16 +158,16 @@ public class LevelVoldemort {
 
             for (Boss boss: bosses) {
                 if (boss.getName() == "Voldemort")
-                    if (boss.isAlive() && !wizard.successExpe) {
+                    if (boss.isAlive() && !successExpe) {
                         if (boss.canUseAvada()) {
                             boss.useAvadaKedavra(wizard);
                             System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you, you died...");
                         }
                     }
 
-                    if (wizard.successExpe) {
-                        if (wizard.getWand() == "Phoenix Heartstring") {
-                            System.out.println("You both have the same cores ! ");
+                    if (successExpe) {
+                        if (wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
+                            System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores, you both have taken damage. ");
                             wizard.attack(boss);
                             boss.attack(wizard);
                         }
@@ -173,7 +176,7 @@ public class LevelVoldemort {
             }
 
 
-            wizard.successExpe = false;
+            successExpe = false;
             wizard.stopDefending(); // the wizard's defense is back to normal
 
             System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");

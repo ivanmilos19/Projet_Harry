@@ -18,14 +18,14 @@ public abstract class Character {
     public void attack(Character target)
     {
         int damage = damageInflicted();
-        //System.err.println("skdj: attack: from: " + getName() + " target: " + target.getName() + " 1: damage: " + damage);
+
         if (target.isDefending) {
             damage /= target.defenseFactor();
         }
-        //System.err.println("skdj: attack: from: " + getName() + " target: " + target.getName() + " 2: damage: " + damage);
+
         if (damage > target.currentHP)
             damage = target.currentHP;
-        //System.err.println("skdj: attack: from: " + getName() + " target: " + target.getName() + " 3: damage: " + damage);
+
         target.previousHP = target.currentHP;
         target.currentHP -= damage;
     }

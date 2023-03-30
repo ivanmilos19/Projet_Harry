@@ -29,7 +29,7 @@ public class Wand {
 
 
 
-    public void Wand(){
+    public Wand() {
         Scanner scanner = new Scanner(System.in);
         String newLine = System.getProperty("line.separator");
         System.out.println(newLine + "Time for you to get your wand. How tall are you ? (Write your height in centimeters)");
@@ -51,7 +51,7 @@ public class Wand {
         InputReader qualityReader = new InputReader(instructions, qualities);
         int playerChoice = qualityReader.readInputByNumber();
         int index = playerChoice - 1;
-        Core core = cores[index];
+        core = cores[index];
 
         System.out.println("You have a: " + size + " inch wand with a " + core.name().toLowerCase().replace("_", " ") + " core");
 
