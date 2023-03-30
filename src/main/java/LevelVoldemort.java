@@ -18,10 +18,10 @@ public class LevelVoldemort {
     Scanner scanner = new Scanner(System.in);
 
 
+
     public void battle(Wizard wizard, ArrayList<Boss> bosses) {
         int playerChoice;
         while (true) {
-
 
 
             String[] enemy_names = new String[bosses.size()];
@@ -30,13 +30,6 @@ public class LevelVoldemort {
                 enemy_names[i++] = boss.getName();
             }
 
-            if (wizard.getHouse().canJoinEnemy()) {
-                playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
-                if (playerChoice == 1) {
-                    System.out.println( CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
-                    break;
-                }
-            }
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
                     + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
@@ -88,12 +81,15 @@ public class LevelVoldemort {
                     continue;
                 }
 
+
+
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
                         + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining","Accio | x"
                         + wizard.getNumberAccioSpells(wizard.getAccio()) + " remaining", "Expecto Patronum | x"
                         + wizard.getNumberExpectoSpells(wizard.getExpectoPatronum()) + " remaining", "Sectumsempra | x"
-                        + wizard.getNumberSectumsempraSpells(wizard.getSectumsempra()) + " remaining"});
+                        + wizard.getNumberSectumsempraSpells(wizard.getSectumsempra()) + " remaining", "Expelliarmus | x"
+                        + wizard.getNumberExpelliarmusSpells(wizard.getExpelliarmus()) + " remaining"});
                 playerChoice = reader.readInputByNumber();
 
                 if (reader.noopChosen())
@@ -133,10 +129,16 @@ public class LevelVoldemort {
                         System.out.println("can't cast sectumsempra no more");
                         continue;
                     }
+                } else if (playerChoice == 5) {
+                    boolean success = wizard.useExpelliarmus(bosses.get(target_enemy - 1));
+                    if (!success){
+                        System.out.println("can't cast expelliarmus no more");
+                        continue;
+                    }
+                    wizard.successExpe = true;
 
                 }
             }
-
 
             boolean allFoesDead = true;
             for (Boss boss: bosses) {
@@ -148,13 +150,30 @@ public class LevelVoldemort {
                 break;
             }
 
-            // now the protagonist is attacked
-            for (Boss boss: bosses) {
-                if (boss.isAlive())
-                    boss.attack(wizard);
 
+
+
+            for (Boss boss: bosses) {
+                if (boss.getName() == "Voldemort")
+                    if (boss.isAlive() && !wizard.successExpe) {
+                        if (boss.canUseAvada()) {
+                            boss.useAvadaKedavra(wizard);
+                            System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you, you died...");
+                        }
+                    }
+
+                    if (wizard.successExpe) {
+                        if (wizard.getWand() == "Phoenix Heartstring") {
+                            System.out.println("You both have the same cores ! ");
+                            wizard.attack(boss);
+                            boss.attack(wizard);
+                        }
+                    }
+                boss.resetUseAvada();
             }
 
+
+            wizard.successExpe = false;
             wizard.stopDefending(); // the wizard's defense is back to normal
 
             System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
@@ -168,13 +187,12 @@ public class LevelVoldemort {
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
 
 
+            for (Boss boss: bosses) {
+                if (boss.getName() == "Voldemort") {
+                    boss.RandomUseAvada();
+                }
+            }
         }
-
-        Rewards rewards = new Rewards();
-        rewards.getRewards(wizard);
-
-        Shop shop = new Shop();
-        shop.enterShop(wizard);
-
     }
 }
+

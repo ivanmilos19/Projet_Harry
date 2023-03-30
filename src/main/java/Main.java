@@ -20,12 +20,13 @@ public  class Main {
         House house = sortingHat.getHouse();
 
         Wizard wizard = Wizard.builder()
-                .currentHP(3000)
-                .previousHP(3000)
-                .baseHP(3000)
+                .currentHP(1000)
+                .previousHP(1000)
+                .baseHP(1000)
                 .level(1)
                 .accuracy(0.85 + house.precision())
                 .house(sortingHat.getHouse())
+
 
                 .healthPotions(new ArrayList<>())
                 .manaPotions(new ArrayList<>())
@@ -34,7 +35,8 @@ public  class Main {
                 .wingardiumLeviosa(new ArrayList<>())
                 .expectoPatronum(new ArrayList<>())
                 .accio(new ArrayList<>())
-                .sectumsempra(new ArrayList<>(4))
+                .sectumsempra(new ArrayList<>())
+                .expelliarmus(new ArrayList<>())
 
                 .attack_strength((int)(1211 * house.attackMultiplier()))
                 .manaPool(100)
@@ -47,6 +49,9 @@ public  class Main {
                 .expectoCrit(99999)
                 .expectoDmg(60)
                 .expectoManaUsage(30)
+
+                .expelliarmusDmg(200)
+                .expellarmusManaUsg(30)
 
                 .accioDmg(150)
                 .accioManaUsage(10)
@@ -62,11 +67,17 @@ public  class Main {
 
         // add spells
         wizard.addSpell(new Spell());
+        wizard.addSpell(new Spell());
+        wizard.addSpell(new Spell());
+        wizard.addSpell(new Spell());
+        wizard.addSpell(new Spell());
 
 
         //wizard.Pet();
-        Wand wand = new Wand();
-        wand.Wand();
+        //Wand wand = new Wand();
+        //wand.Wand();
+
+
 
         ////////// LEVEL 1 //////////////
         LevelTroll levelTroll = new LevelTroll();
@@ -77,15 +88,17 @@ public  class Main {
 
 
 
-       Boss troll = Boss.builder()
+       Enemy troll = Enemy.builder()
                 .currentHP(500)
                 .baseHP(500)
                 .attack_strength(30)
+                .maceDmg(60)
                 .name("Troll")
                 .build();
 
 
-        //levelTroll.battle(wizard, troll);
+            //levelTroll.battle(wizard, troll);
+
 
 
         ////////// LEVEL 2 //////////////
@@ -242,9 +255,10 @@ public  class Main {
                     .build());
 
             bosses.add(Boss.builder()
-                    .currentHP(5000)
-                    .baseHP(5000)
-                    .attack_strength(150)
+                    .currentHP(6000)
+                    .baseHP(6000)
+                    .attack_strength(100)
+                    .AvadaKedavraDmg(9999)
                     .name("Voldemort")
                     .build());
 

@@ -62,7 +62,12 @@ public class Wizard extends Character {
 
 
 
+
+    Wand core;
+
     House house;
+
+    private String wand;
 
 
     ////////////// Spells attributes ////////////////////
@@ -84,7 +89,10 @@ public class Wizard extends Character {
     private int sectumsempraDmg;
     private int sectumsempraManaUsg;
 
+    private int expelliarmusDmg;
+    private int expellarmusManaUsg;
 
+    public boolean successExpe;
 
     //////////// Potions //////////////
     private Potion currentDamagePotion = null;
@@ -181,6 +189,7 @@ public class Wizard extends Character {
         expectoPatronum.add(spell);
         accio.add(spell);
         sectumsempra.add(spell);
+        expelliarmus.add(spell);
     }
 
 
@@ -266,7 +275,7 @@ public class Wizard extends Character {
     }
 
     public boolean useExpecto(Character target) {
-        boolean success = false;
+        boolean successExpecto = false;
         if (expectoPatronum.size() > 0 && currentmanaPool > 0) {
             Spell expecto = expectoPatronum.get(0);
 
@@ -281,10 +290,10 @@ public class Wizard extends Character {
             target.setCurrentHP(new_HP);
             currentmanaPool -= expectoManaUsage;
             expectoPatronum.remove(0);
-            success = true;
+            successExpecto = true;
         }
         minMana();
-        return success;
+        return successExpecto;
     }
 
     public boolean useAccio(Character target) {
@@ -315,7 +324,7 @@ public class Wizard extends Character {
     public boolean useSectumsempra(Character target) {
         boolean success = false;
         if (sectumsempra.size() > 0 && currentmanaPool > 0) {
-            Spell spellAccio = sectumsempra.get(0);
+            Spell sectum = sectumsempra.get(0);
 
             if (target.getName() == "Basilic") {
                 new_HP = target.getCurrentHP() - sectumsempraDmg;
@@ -329,6 +338,30 @@ public class Wizard extends Character {
             target.setCurrentHP(new_HP);
             currentmanaPool -= sectumsempraManaUsg;
             sectumsempra.remove(0);
+            success = true;
+
+        }
+        minMana();
+        return success;
+    }
+
+    public boolean useExpelliarmus(Character target) {
+        boolean success = false;
+        if (expelliarmus.size() > 0 && currentmanaPool > 0) {
+            Spell expelli = expelliarmus.get(0);
+
+            if (target.getName() == "Basilic") {
+                new_HP = target.getCurrentHP() - expelliarmusDmg;
+            } else {
+                new_HP = target.getCurrentHP() - 0;
+            }
+
+            new_HP = target.getCurrentHP() - expelliarmusDmg;
+            if (new_HP < 0)
+                new_HP = 0;
+            target.setCurrentHP(new_HP);
+            currentmanaPool -= expellarmusManaUsg;
+            expelliarmus.remove(0);
             success = true;
 
         }
@@ -353,5 +386,7 @@ public class Wizard extends Character {
         Pet pet = pets[index];
         System.out.println("A " + pet.name().toLowerCase().replace("_", " ") + " will accompany you.");
     }
+
+
 
 }
