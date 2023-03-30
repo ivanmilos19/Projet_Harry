@@ -20,7 +20,7 @@ public abstract class Character {
         int damage = damageInflicted();
         //System.err.println("skdj: attack: from: " + getName() + " target: " + target.getName() + " 1: damage: " + damage);
         if (target.isDefending) {
-            damage /= defenseFactor();
+            damage /= target.defenseFactor();
         }
         //System.err.println("skdj: attack: from: " + getName() + " target: " + target.getName() + " 2: damage: " + damage);
         if (damage > target.currentHP)
