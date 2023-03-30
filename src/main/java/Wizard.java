@@ -99,7 +99,8 @@ public class Wizard extends Character {
     private int damagePotionTurnsLeft = 0;
     private int Gold;
 
-
+    @Override
+    public String getName() { return "Wizard"; }
 
     /* @Override
      public int damageInflicted() {

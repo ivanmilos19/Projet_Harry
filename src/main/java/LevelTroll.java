@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LevelTroll {
@@ -93,16 +92,14 @@ public class LevelTroll {
                 break;
             }
 
+
             if (troll.canUseMace()) {
-                troll.useMace(wizard);
-                System.out.println(RED_BOLD_BRIGHT+"The troll smashed you and dealt big damage!");
+                troll.attack(wizard);
+                System.out.println(RED_BOLD_BRIGHT + "The troll smashed you and dealt big damage!");
             } else {
                 troll.attack(wizard);
             }
-
             troll.resetMace();
-
-
 
             System.out.println(RED_BOLD_BRIGHT+"You took " + wizard.getLastDamageTaken() + " damage !");
 
@@ -114,7 +111,7 @@ public class LevelTroll {
             wizard.stopDefending(); // the wizard's defense is back to normal
 
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
-            troll.RandomUseMace();
+            troll.randomUseMace();
         }
 
 

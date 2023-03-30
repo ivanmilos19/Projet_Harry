@@ -92,12 +92,12 @@ public  class Main {
                 .currentHP(500)
                 .baseHP(500)
                 .attack_strength(30)
-                .maceDmg(60)
+                .attackStrengthMultiplier(3)
                 .name("Troll")
                 .build();
 
 
-            //levelTroll.battle(wizard, troll);
+            levelTroll.battle(wizard, troll);
 
 
 

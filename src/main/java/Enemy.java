@@ -9,17 +9,19 @@ import java.util.Random;
 public class Enemy extends AbstractEnemy {
     @Override
     public int damageInflicted() {
-        return getAttack_strength();
+        int attack_strength = getAttack_strength();
+        if (canUseMace()) {
+            attack_strength *= attackStrengthMultiplier;
+        }
+        return attack_strength;
     }
     private int new_HP;
 
     // Troll big attack //
     private boolean castMace;
-    private int maceDmg;
+    private int attackStrengthMultiplier;
 
-
-
-    public boolean RandomUseMace() {
+    public boolean randomUseMace() {
         castMace = false;
         Random rand = new Random();
         double probability = 0.2; // hitting accuracy
@@ -35,16 +37,8 @@ public class Enemy extends AbstractEnemy {
         return castMace;
     }
 
-    public boolean resetMace() {
+    public void resetMace() {
         castMace = false;
-        return castMace;
-    }
-
-    public void useMace(Character target) {
-        new_HP = target.getCurrentHP() - getMaceDmg();
-        if (new_HP < 0)
-            new_HP = 0;
-        target.setCurrentHP(new_HP);
     }
 
 }
