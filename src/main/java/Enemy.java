@@ -6,7 +6,10 @@ import java.util.Random;
 @Data
 @SuperBuilder
 
+
+
 public class Enemy extends AbstractEnemy {
+    public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
     @Override
     public int damageInflicted() {
         int attack_strength = getAttack_strength();
@@ -27,7 +30,7 @@ public class Enemy extends AbstractEnemy {
         double probability = 0.2; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
-            System.out.println("The troll is about to smash you with his mace! You should defend !");
+            System.out.println(RED_BOLD_BRIGHT +"The troll is about to smash you with his mace and is about to do big damage !");
             castMace = true;
         }
         return castMace;

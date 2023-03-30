@@ -6,6 +6,8 @@ import java.util.Random;
 @Data
 @SuperBuilder
 public class  Boss extends AbstractEnemy {
+
+    public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
     @Override
     public int damageInflicted() {
         return getAttack_strength();
@@ -22,7 +24,7 @@ public class  Boss extends AbstractEnemy {
         double probability = 0.3; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
-            System.out.println("Voldemort is preparing to use Avada Kedravra!");
+            System.out.println(RED_BOLD_BRIGHT + "Voldemort is preparing to use Avada Kedavra!");
             castAvada = true;
         }
         return castAvada;
