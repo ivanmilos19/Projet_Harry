@@ -20,11 +20,11 @@ public  class Main {
         House house = sortingHat.getHouse();
 
         Wizard wizard = Wizard.builder()
-                .currentHP(40000)
-                .previousHP(40000)
-                .baseHP(400)
+                .currentHP(500)
+                .previousHP(500)
+                .baseHP(500)
                 .level(1)
-                .accuracy(0.12 + house.precision())
+                .accuracy(0.85 + house.precision())
                 .house(sortingHat.getHouse())
                 .joinedEnemy(false)
 
@@ -74,18 +74,12 @@ public  class Main {
         wizard.addDamagePotion(new Potion());
         wizard.addManaPotion(new Potion());
 
-        wizard.addHealthPotion(new Potion());
-        wizard.addDamagePotion(new Potion());
-        wizard.addManaPotion(new Potion());
 
-        wizard.addHealthPotion(new Potion());
-        wizard.addDamagePotion(new Potion());
-        wizard.addManaPotion(new Potion());
 
         // add spells
         wizard.addSpell(new Spell());
         wizard.addSpell(new Spell());
-        wizard.addSpell(new Spell());
+
 
 
         wizard.Pet();
@@ -110,11 +104,12 @@ public  class Main {
                 .name("Troll")
                 .build();
 
-       //levelTroll.battle(wizard, troll);
+       levelTroll.battle(wizard, troll);
 
 
 
         ////////// LEVEL 2 //////////////
+
         LevelBasilic levelBasilic = new LevelBasilic();
 
 
@@ -129,13 +124,13 @@ public  class Main {
         Boss basilic = Boss.builder()
                 .currentHP(900)
                 .baseHP(900)
-                .attack_strength(50)
-                .attackStrengthMultiplier(3)
+                .attack_strength(35)
+                .attackStrengthMultiplier(5)
                 .name("Basilic")
                 .build();
 
 
-        //levelBasilic.battle(wizard, basilic);
+        levelBasilic.battle(wizard, basilic);
 
 
 
@@ -168,10 +163,15 @@ public  class Main {
                     .build());
 
             LevelDementor levelDementor = new LevelDementor();
-           // levelDementor.battle(wizard, dementors);
+            levelDementor.battle(wizard, dementors);
         }
 
         ////////// LEVEL 4 //////////////
+
+        if(wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) < 5) {
+            // Add a new spell if the wizard has less than 5 spells
+            wizard.addSpell(new Spell());
+        }
 
         if (wizard.isAlive()) {
             System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
@@ -180,8 +180,8 @@ public  class Main {
             ArrayList<Boss> Hangleton = new ArrayList<>();
 
             Hangleton.add(Boss.builder()
-                    .baseHP(3000)
-                    .currentHP(3000)
+                    .baseHP(2000)
+                    .currentHP(2000)
                     .attack_strength(110)
                     .name("Voldemort")
                     .build());
@@ -199,9 +199,8 @@ public  class Main {
                     .build());
 
 
-
             LevelHangleton levelHangleton = new LevelHangleton();
-           // levelHangleton.battle(wizard, Hangleton);
+            levelHangleton.battle(wizard, Hangleton);
         }
 
         ////////// LEVEL 5 //////////////
@@ -215,11 +214,12 @@ public  class Main {
                     .currentHP(2000)
                     .baseHP(2000)
                     .attack_strength(60)
+                    .attackStrengthMultiplier(2)
                     .name("Dolores Ombrage")
                     .build();
 
             LevelDolores levelDolores = new LevelDolores();
-          //  levelDolores.battle(wizard, dolores);
+            levelDolores.battle(wizard, dolores);
         }
 
         ////////// LEVEL 6 //////////////
@@ -258,7 +258,7 @@ public  class Main {
 
 
             LevelDeathEaters levelDeathEaters = new LevelDeathEaters();
-            //levelDeathEaters.battle(wizard, deathEaters);
+            levelDeathEaters.battle(wizard, deathEaters);
         }
 
 
@@ -282,8 +282,8 @@ public  class Main {
                     .build());
 
             bosses.add(Boss.builder()
-                    .currentHP(3000)
-                    .baseHP(3000)
+                    .currentHP(2000)
+                    .baseHP(2000)
                     .attack_strength(110)
                     .attackStrengthMultiplier(999)
                     .name("Voldemort")
@@ -291,9 +291,8 @@ public  class Main {
 
 
             LevelVoldemort levelVoldemort= new LevelVoldemort();
-            //levelVoldemort.battle(wizard, bosses);
+            levelVoldemort.battle(wizard, bosses);
         }
-
     }
 }
 

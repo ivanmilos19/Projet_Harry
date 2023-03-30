@@ -3,7 +3,7 @@ public class Rewards {
     public void getRewards(Wizard wizard) {
 
 
-        wizard.setBaseHP(wizard.getBaseHP() + 100);
+        wizard.setBaseHP(wizard.getBaseHP() + 150);
         wizard.setGold(wizard.getGold() + 40);
         wizard.setManaPool(wizard.getManaPool() + 25);
         wizard.setLevel(wizard.getLevel() + 1);
@@ -18,10 +18,6 @@ public class Rewards {
 
         wizard.addSpell(new Spell());
         wizard.addSpell(new Spell());
-        wizard.addSpell(new Spell());
-
-
-
 
     }
 }

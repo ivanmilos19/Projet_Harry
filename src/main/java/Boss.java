@@ -25,14 +25,14 @@ public class  Boss extends AbstractEnemy {
 
     private int new_HP;
     private boolean castAvada;
-
+    private boolean basilicBite;
     private int attackStrengthMultiplier;
 
 
     public boolean RandomUseAvada() {
         castAvada = false;
         Random rand = new Random();
-        double probability = 1; // hitting accuracy
+        double probability = 0.2; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
             System.out.println(PURPLE_BOLD_BRIGHT + "Voldemort is preparing to use Avada Kedavra!");
@@ -49,25 +49,25 @@ public class  Boss extends AbstractEnemy {
         castAvada = false;
 
     }
-
+    //BIG ATTACK BASILIC/
     public boolean RandomBite() {
-        castAvada = false;
+        basilicBite = false;
         Random rand = new Random();
         double probability = 0.3; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
             System.out.println( PURPLE_BOLD_BRIGHT + "The basilic is about to bite you!");
-            castAvada = true;
+            basilicBite = true;
         }
-        return castAvada;
+        return basilicBite;
     }
     public boolean canBite() {
-        return castAvada;
+        return basilicBite;
     }
 
 
     public void resetBite() {
-        castAvada = false;
+        basilicBite = false;
 
     }
 }

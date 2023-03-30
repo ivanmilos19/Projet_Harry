@@ -151,6 +151,7 @@ public class LevelVoldemort {
 
             if (allFoesDead) {
                 System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foes defeated !");
+                System.out.println(CYAN_BOLD_BRIGHT+ "Congratulations ! You have defeated the Dark Lord and his minions! The wizarding world is at peace now.");
                 break;
             }
 
@@ -161,18 +162,15 @@ public class LevelVoldemort {
                     if (boss.isAlive() && !successExpelliarmus) {
                         if (boss.canUseAvada()) {
                             boss.attack(wizard);
-                            System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you, you died...");
+                            System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you. You stood no chance against the Dark Lord...");
                         } else {
                             boss.attack(wizard);
                         }
                     }
 
-                    if (successExpelliarmus) {
-                        if (wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
-                            System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores. You both have taken damage. ");
-                            wizard.attack(boss);
-                            boss.attack(wizard);
-                        }
+                    if (successExpelliarmus && wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
+                        System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores! Health restored. ");
+                        wizard.setCurrentHP(wizard.getBaseHP());
                     }
                 boss.resetUseAvada();
             }
@@ -197,7 +195,6 @@ public class LevelVoldemort {
                     boss.RandomUseAvada();
                 }
             }
-
 
         }
     }
