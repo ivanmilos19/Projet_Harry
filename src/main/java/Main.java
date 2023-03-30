@@ -26,6 +26,7 @@ public  class Main {
                 .level(1)
                 .accuracy(0.85 + house.precision())
                 .house(sortingHat.getHouse())
+                .joinedEnemy(false)
 
 
                 .healthPotions(new ArrayList<>())
@@ -95,7 +96,7 @@ public  class Main {
                 .build();
 
 
-            levelTroll.battle(wizard, troll);
+            //levelTroll.battle(wizard, troll);
 
 
 
@@ -232,8 +233,12 @@ public  class Main {
 
 
             LevelDeathEaters levelDeathEaters = new LevelDeathEaters();
-            //levelDeathEaters.battle(wizard, deathEaters);
+            levelDeathEaters.battle(wizard, deathEaters);
         }
+
+        if (wizard.isJoinedEnemy())
+            return;
+
 
         ////////// LEVEL 7 //////////////
 

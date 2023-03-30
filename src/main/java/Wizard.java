@@ -65,6 +65,8 @@ public class Wizard extends Character {
 
     House house;
 
+    boolean joinedEnemy;
+
 
     ////////////// Spells attributes ////////////////////
     private int wingardiumDmg;
