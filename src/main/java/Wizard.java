@@ -9,50 +9,21 @@ import java.util.ArrayList;
 @Data
 @SuperBuilder
 public class Wizard extends Character {
+
     public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";// YELLOW
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
     public static final String RESET = "\033[0m";  // Text Reset
 
-
-
-
     ////////////// Arrays lists ////////////////////
-    ArrayList<Potion> healthPotions = new ArrayList<>();
-    ArrayList<Potion> damagePotions = new ArrayList<>();
-    ArrayList<Potion> manaPotions = new ArrayList<>();
+    protected ArrayList<Potion> healthPotions = new ArrayList<>();
+    protected ArrayList<Potion> damagePotions = new ArrayList<>();
+    protected ArrayList<Potion> manaPotions = new ArrayList<>();
 
-    ArrayList<Spell> wingardiumLeviosa = new ArrayList<>();
-    ArrayList<Spell> accio = new ArrayList<>();
-    ArrayList<Spell> expectoPatronum = new ArrayList<>();
-    ArrayList<Spell> sectumsempra = new ArrayList<>();
-    ArrayList<Spell> expelliarmus = new ArrayList<>();
-
-    public int getNumberHealthPotion(ArrayList<Potion> healthPotions) {
-        return healthPotions.size();
-    }
-    public int getNumberAttackPotion(ArrayList<Potion> damagePotions) {
-        return damagePotions.size();
-    }
-    public int getNumberManaPotion(ArrayList<Potion> manaPotions) {
-        return manaPotions.size();
-    }
-
-    public int getNumberWingardiumSpells(ArrayList<Spell> wingardiumLeviosa) {
-        return wingardiumLeviosa.size();
-    }
-    public int getNumberAccioSpells(ArrayList<Spell> accio) {
-        return accio.size();
-    }
-    public int getNumberExpectoSpells(ArrayList<Spell> expectoPatronum) {
-        return expectoPatronum.size();
-    }
-    public int getNumberSectumsempraSpells(ArrayList<Spell> sectumsempra) {
-        return sectumsempra.size();
-    }
-    public int getNumberExpelliarmusSpells(ArrayList<Spell> expelliarmus) {
-        return expelliarmus.size();
-    }
-
+    protected ArrayList<Spell> wingardiumLeviosa = new ArrayList<>();
+    protected ArrayList<Spell> accio = new ArrayList<>();
+    protected ArrayList<Spell> expectoPatronum = new ArrayList<>();
+    protected ArrayList<Spell> sectumsempra = new ArrayList<>();
+    protected ArrayList<Spell> expelliarmus = new ArrayList<>();
 
 
     ////////////// Wizard attributes ////////////////////

@@ -46,9 +46,9 @@ public class LevelTroll {
             } else if (playerChoice == 3) { // Potion
 
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
-                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
-                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
-                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                        + wizard.getHealthPotions().size() + " remaining", "Attack buff potion | x"
+                        + wizard.getDamagePotions().size() + " remaining", "Mana potion | x"
+                        + wizard.getManaPotions().size() + " remaining"});
                 playerChoice = reader.readInputByNumber();
                 if (reader.noopChosen())
                     continue;
@@ -68,7 +68,7 @@ public class LevelTroll {
 
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
-                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining"});
+                        + wizard.getWingardiumLeviosa().size() + " remaining"});
 
                 playerChoice = reader.readInputByNumber();
                 if (reader.noopChosen())

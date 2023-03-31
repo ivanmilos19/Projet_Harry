@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LevelDolores {
@@ -47,9 +46,9 @@ public class LevelDolores {
             } else if (playerChoice == 3) { // Potion
 
                 String [] inventory_choices = {"Health Potion | x"
-                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
-                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
-                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"};
+                        + wizard.getHealthPotions().size() + " remaining", "Attack buff potion | x"
+                        + wizard.getDamagePotions().size() + " remaining", "Mana potion | x"
+                        + wizard.getManaPotions().size() + " remaining"};
 
                 if (turn_number >= 5)
                 {
@@ -85,9 +84,9 @@ public class LevelDolores {
 
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
-                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining","Accio | x"
-                        + wizard.getNumberAccioSpells(wizard.getAccio()) + " remaining", "Expecto Patronum | x"
-                        + wizard.getNumberExpectoSpells(wizard.getExpectoPatronum()) + " remaining"});
+                        + wizard.getWingardiumLeviosa().size() + " remaining","Accio | x"
+                        + wizard.getAccio().size() + " remaining", "Expecto Patronum | x"
+                        + wizard.getExpectoPatronum().size() + " remaining"});
 
                 playerChoice = reader.readInputByNumber();
                 if (reader.noopChosen())

@@ -72,9 +72,9 @@ public class LevelDeathEaters {
             } else if (playerChoice == 3) { // Potion
 
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Select a potion" + newLine, new String[]{"Health Potion | x"
-                        + wizard.getNumberHealthPotion(wizard.getHealthPotions()) + " remaining", "Attack buff potion | x"
-                        + wizard.getNumberAttackPotion(wizard.getDamagePotions()) + " remaining", "Mana potion | x"
-                        + wizard.getNumberManaPotion(wizard.getManaPotions()) + " remaining"});
+                        + wizard.getHealthPotions().size() + " remaining", "Attack buff potion | x"
+                        + wizard.getDamagePotions().size() + " remaining", "Mana potion | x"
+                        + wizard.getManaPotions().size() + " remaining"});
                 playerChoice = reader.readInputByNumber();
 
                 if (reader.noopChosen())
@@ -95,10 +95,10 @@ public class LevelDeathEaters {
 
             } else if (playerChoice == 4) { // Spell
                 InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
-                        + wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) + " remaining","Accio | x"
-                        + wizard.getNumberAccioSpells(wizard.getAccio()) + " remaining", "Expecto Patronum | x"
-                        + wizard.getNumberExpectoSpells(wizard.getExpectoPatronum()) + " remaining", "Sectumsempra | x"
-                        + wizard.getNumberSectumsempraSpells(wizard.getSectumsempra()) + " remaining"});
+                        + wizard.getWingardiumLeviosa().size() + " remaining","Accio | x"
+                        + wizard.getAccio().size() + " remaining", "Expecto Patronum | x"
+                        + wizard.getExpectoPatronum().size() + " remaining", "Sectumsempra | x"
+                        + wizard.getSectumsempra().size() + " remaining"});
                 playerChoice = reader.readInputByNumber();
 
                 if (reader.noopChosen())

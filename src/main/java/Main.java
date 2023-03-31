@@ -168,7 +168,7 @@ public  class Main {
 
         ////////// LEVEL 4 //////////////
 
-        if(wizard.getNumberWingardiumSpells(wizard.getWingardiumLeviosa()) < 5) {
+        if(wizard.getWingardiumLeviosa().size() < 5) {
             // Add a new spell if the wizard has less than 5 spells
             wizard.addSpell(new Spell());
         }
