@@ -16,3 +16,5 @@ Damage potions buff the basic spells damage, not the other spells.
 
 In the last level, Unless you cast expeliarmus when voldemort is about to cast avada kedavra, you will die instantly.
 
+if you want to go to a specific level you can commne out some specific code like //levelTroll.battle(wizard, troll); will skip the troll level.
+
