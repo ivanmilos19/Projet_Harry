@@ -104,7 +104,7 @@ public  class Main {
                 .name("Troll")
                 .build();
 
-       levelTroll.battle(wizard, troll);
+       //levelTroll.battle(wizard, troll);
 
 
 
@@ -130,7 +130,7 @@ public  class Main {
                 .build();
 
 
-        levelBasilic.battle(wizard, basilic);
+        //levelBasilic.battle(wizard, basilic);
 
 
 
@@ -163,7 +163,7 @@ public  class Main {
                     .build());
 
             LevelDementor levelDementor = new LevelDementor();
-            levelDementor.battle(wizard, dementors);
+            //levelDementor.battle(wizard, dementors);
         }
 
         ////////// LEVEL 4 //////////////
@@ -200,7 +200,7 @@ public  class Main {
 
 
             LevelHangleton levelHangleton = new LevelHangleton();
-            levelHangleton.battle(wizard, Hangleton);
+            //levelHangleton.battle(wizard, Hangleton);
         }
 
         ////////// LEVEL 5 //////////////
@@ -219,7 +219,7 @@ public  class Main {
                     .build();
 
             LevelDolores levelDolores = new LevelDolores();
-            levelDolores.battle(wizard, dolores);
+            //levelDolores.battle(wizard, dolores);
         }
 
         ////////// LEVEL 6 //////////////

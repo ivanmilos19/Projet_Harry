@@ -20,20 +20,20 @@ public class LevelDeathEaters {
 
     public void battle(Wizard wizard, ArrayList<Enemy> deathEaters) {
         int playerChoice;
+
+        if (wizard.getHouse().canJoinEnemy()) {
+            {playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
+                if (playerChoice == 1) {
+                    System.out.println(CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
+                    wizard.setJoinedEnemy(true);
+                }
+            }
+        }
+
         while (true) {
 
-
-            if (wizard.getHouse().canJoinEnemy()) {
-                while (!wizard.isJoinedEnemy()) {
-                    playerChoice = (new InputReader(RESET + newLine + "Since you're a slytherin , do you want to join the enemy ?" + newLine, new String[]{"Yes", "No"})).readInputByNumber();
-                    if (playerChoice == 1) {
-                        System.out.println(CYAN_BOLD_BRIGHT + "You have decided to join the enemy.");
-                        wizard.setJoinedEnemy(true);
-                        break;
-                    } else {
-                        wizard.setJoinedEnemy(true);
-                    }
-                }
+            if (wizard.isJoinedEnemy()){
+                break;
             }
 
             String[] enemy_names = new String[deathEaters.size()];
