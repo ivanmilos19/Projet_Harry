@@ -28,14 +28,19 @@ public class SortingHat {
         String houseName = determineHouse(quality);
         System.out.println("You are in " + houseName + " !");
 
-        if (houseName == "Gryffindor")
+        if (houseName == "Gryffindor") {
             house = new Gryffindor();
+            System.out.println("Your defense is higher.");
+        }
         else if (houseName == "Ravenclaw") {
             house = new Ravenclaw();
+            System.out.println("Your basic spell accuracy is higher.");
         } else if (houseName == "Hufflepuff") {
             house = new Hufflepuff();
+            System.out.println("Your potions effects are stronger.");
         } else if (houseName == "Slytherin") {
             house = new Slytherin();
+            System.out.println("Your basic spell damage is higher.");
         }
     }
 }
