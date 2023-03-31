@@ -22,14 +22,13 @@ public class LevelTroll {
 
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
-                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |   " + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
                     + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
-                    + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
-                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" +newLine + newLine);
+                    + WHITE_BOLD_BRIGHT + "  |   " + PURPLE_BOLD_BRIGHT + "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
+                    + WHITE_BOLD_BRIGHT + "  |   " + "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
             System.out.print(RED_BOLD_BRIGHT + troll.getName() + ": " + troll.getCurrentHP() + "/" + troll.getBaseHP() + " ❤" + newLine);
-
 
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Attack", "Defend", "Inventory", "Spell"})).readInputByNumber();
@@ -39,8 +38,7 @@ public class LevelTroll {
 
                 wizard.attack(troll);
 
-            }
-            else if (playerChoice == 2) { // Defend
+            } else if (playerChoice == 2) { // Defend
                 wizard.defend();
 
             } else if (playerChoice == 3) { // Potion
@@ -67,7 +65,7 @@ public class LevelTroll {
                 }
 
             } else if (playerChoice == 4) { // Spell
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
                         + wizard.getWingardiumLeviosa().size() + " remaining"});
 
                 playerChoice = reader.readInputByNumber();
@@ -78,11 +76,11 @@ public class LevelTroll {
                     continue;
                 if (playerChoice == 1) { // "Wingardium leviosa"
                     boolean success = wizard.useWingardiumLeviosa(troll);
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
                     }
-                    System.out.println( BLUE_BOLD_BRIGHT + "You used an object and dropped it on the troll's head. Big damage inflected !");
+                    System.out.println(BLUE_BOLD_BRIGHT + "You used an object and dropped it on the troll's head. Big damage inflected !");
                 }
             }
 
@@ -101,7 +99,7 @@ public class LevelTroll {
             }
             troll.resetMace();
 
-            System.out.println(RED_BOLD_BRIGHT+"You took " + wizard.getLastDamageTaken() + " damage !");
+            System.out.println(RED_BOLD_BRIGHT + "You took " + wizard.getLastDamageTaken() + " damage !");
 
             if (wizard.isDead()) {
                 System.out.println(RED_BOLD_BRIGHT + newLine + "Game Over");
@@ -115,8 +113,7 @@ public class LevelTroll {
         }
 
 
-
-        Rewards rewards  = new Rewards();
+        Rewards rewards = new Rewards();
         rewards.getRewards(wizard);
 
         Shop shop = new Shop();

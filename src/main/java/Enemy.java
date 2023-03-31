@@ -7,11 +7,11 @@ import java.util.Random;
 @SuperBuilder
 
 
-
 public class Enemy extends AbstractEnemy {
 
     public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
     public static final String PURPLE_BOLD_BRIGHT = "\033[1;95m";// PURPLE
+
     @Override
     public int damageInflicted() {
         int attack_strength = getAttack_strength();
@@ -25,6 +25,7 @@ public class Enemy extends AbstractEnemy {
 
         return attack_strength;
     }
+
     private int new_HP;
 
     // Troll big attack //
@@ -41,7 +42,7 @@ public class Enemy extends AbstractEnemy {
         double probability = 0.3; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
-            System.out.println(PURPLE_BOLD_BRIGHT +"The troll is about to smash you with his mace and is about to do big damage !");
+            System.out.println(PURPLE_BOLD_BRIGHT + "The troll is about to smash you with his mace and is about to do big damage !");
             castMace = true;
         }
         return castMace;
@@ -64,7 +65,7 @@ public class Enemy extends AbstractEnemy {
         double probability = 0.6; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
-            System.out.println(PURPLE_BOLD_BRIGHT +"Dolores is about to throw the Wizard encyclopedia at you ! Big damage incoming !");
+            System.out.println(PURPLE_BOLD_BRIGHT + "Dolores is about to throw the Wizard encyclopedia at you ! Big damage incoming !");
             throwBook = true;
         }
         return throwBook;

@@ -5,10 +5,11 @@ import java.util.Random;
 
 @Data
 @SuperBuilder
-public class  Boss extends AbstractEnemy {
+public class Boss extends AbstractEnemy {
 
     public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
     public static final String PURPLE_BOLD_BRIGHT = "\033[1;95m";// PURPLE
+
     @Override
     public int damageInflicted() {
         int attack_strength = getAttack_strength();
@@ -40,6 +41,7 @@ public class  Boss extends AbstractEnemy {
         }
         return castAvada;
     }
+
     public boolean canUseAvada() {
         return castAvada;
     }
@@ -49,6 +51,7 @@ public class  Boss extends AbstractEnemy {
         castAvada = false;
 
     }
+
     //BIG ATTACK BASILIC/
     public boolean RandomBite() {
         basilicBite = false;
@@ -56,11 +59,12 @@ public class  Boss extends AbstractEnemy {
         double probability = 0.3; // hitting accuracy
 
         if (rand.nextDouble() < probability) {
-            System.out.println( PURPLE_BOLD_BRIGHT + "The basilic is about to bite you!");
+            System.out.println(PURPLE_BOLD_BRIGHT + "The basilic is about to bite you!");
             basilicBite = true;
         }
         return basilicBite;
     }
+
     public boolean canBite() {
         return basilicBite;
     }

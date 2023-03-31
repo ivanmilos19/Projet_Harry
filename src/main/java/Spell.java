@@ -1,4 +1,4 @@
-public class Spell extends AbstractSpell{
+public class Spell extends AbstractSpell {
 
 
 }

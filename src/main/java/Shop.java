@@ -31,20 +31,16 @@ public class Shop {
                     wizard.addHealthPotion(new Potion());
                     wizard.setGold(wizard.getGold() - healthPrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a health potion");
-                }
-
-                else if (playerChoice == 2 && wizard.getGold() - damagePrice > 0) {
+                } else if (playerChoice == 2 && wizard.getGold() - damagePrice > 0) {
                     wizard.addDamagePotion(new Potion());
                     wizard.setGold(wizard.getGold() - damagePrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a damage boost potion");
-                }
-
-                else if (playerChoice == 3 && wizard.getGold() - manaPrice > 0) {
+                } else if (playerChoice == 3 && wizard.getGold() - manaPrice > 0) {
                     wizard.addManaPotion(new Potion());
                     wizard.setGold(wizard.getGold() - manaPrice);
                     System.out.println(YELLOW_BOLD_BRIGHT + "Acquired a mana potion");
                 } else {
-                    System.err.println("not enough gold" +newLine);
+                    System.err.println("not enough gold" + newLine);
                 }
                 System.out.println(newLine + "You have: " + wizard.getGold() + " Gold\uD83D\uDCB0");
 

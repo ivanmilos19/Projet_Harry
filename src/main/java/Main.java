@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public  class Main {
+public class Main {
     public static void main(String[] args) {
 
         final String RESET = "\033[0m";  // Text Reset
@@ -13,7 +13,6 @@ public  class Main {
         final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
         final String WHITE_BOLD_BRIGHT = "\033[1;97m"; // WHITE
         String newLine = System.getProperty("line.separator");
-
 
 
         SortingHat sortingHat = new SortingHat();
@@ -39,7 +38,7 @@ public  class Main {
                 .sectumsempra(new ArrayList<>())
                 .expelliarmus(new ArrayList<>())
 
-                .attack_strength((int)(40 * house.attackMultiplier()))
+                .attack_strength((int) (40 * house.attackMultiplier()))
                 .manaPool(150)
                 .currentmanaPool(150)
 
@@ -61,7 +60,6 @@ public  class Main {
                 .sectumsempraManaUsg(70)
 
 
-
                 .Gold(70)
                 .build();
 
@@ -75,11 +73,9 @@ public  class Main {
         wizard.addManaPotion(new Potion());
 
 
-
         // add spells
         wizard.addSpell(new Spell());
         wizard.addSpell(new Spell());
-
 
 
         wizard.Pet();
@@ -95,8 +91,7 @@ public  class Main {
         System.out.println(CYAN_BOLD_BRIGHT + "A troll is roaming in the bathroom ! Will you be able to defeat him ?");
 
 
-
-       Enemy troll = Enemy.builder()
+        Enemy troll = Enemy.builder()
                 .currentHP(800)
                 .baseHP(800)
                 .attack_strength(30)
@@ -104,8 +99,7 @@ public  class Main {
                 .name("Troll")
                 .build();
 
-       levelTroll.battle(wizard, troll);
-
+        levelTroll.battle(wizard, troll);
 
 
         ////////// LEVEL 2 //////////////
@@ -131,7 +125,6 @@ public  class Main {
 
 
         levelBasilic.battle(wizard, basilic);
-
 
 
         ////////// LEVEL 3 //////////////
@@ -168,7 +161,7 @@ public  class Main {
 
         ////////// LEVEL 4 //////////////
 
-        if(wizard.getWingardiumLeviosa().size() < 5) {
+        if (wizard.getWingardiumLeviosa().size() < 5) {
             // Add a new spell if the wizard has less than 5 spells
             wizard.addSpell(new Spell());
         }
@@ -225,9 +218,6 @@ public  class Main {
         ////////// LEVEL 6 //////////////
 
 
-
-
-
         if (wizard.isAlive()) {
             System.out.println(PURPLE_BOLD_BRIGHT + "--------------------------------------------------" + newLine);
             System.out.println(CYAN_BOLD_BRIGHT + "The Death Eaters have invaded Hogwarts. You learned from the Half Blood prince a powerful spell : Sectumsempra !! Use it wisely...");
@@ -262,8 +252,6 @@ public  class Main {
         }
 
 
-
-
         ////////// LEVEL 7 //////////////
 
 
@@ -290,7 +278,7 @@ public  class Main {
                     .build());
 
 
-            LevelVoldemort levelVoldemort= new LevelVoldemort();
+            LevelVoldemort levelVoldemort = new LevelVoldemort();
             levelVoldemort.battle(wizard, bosses);
         }
     }

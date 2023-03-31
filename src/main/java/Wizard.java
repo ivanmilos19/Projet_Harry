@@ -33,12 +33,9 @@ public class Wizard extends Character {
     private int new_HP;
     private double accuracy;
 
-
-
-
     private Wand wand;
 
-    House house;
+    protected House house;
 
     private boolean joinedEnemy;
 
@@ -47,7 +44,6 @@ public class Wizard extends Character {
     private int wingardiumDmg;
     private int wingardiumCrit;
     private int wingardiumManaUsage;
-
 
 
     private int expectoDmg;
@@ -65,13 +61,20 @@ public class Wizard extends Character {
     private int expelliarmusDmg;
     private int expellarmusManaUsg;
 
+    Spell spell = new Spell();
+
     //////////// Potions //////////////
     private Potion currentDamagePotion = null;
     private int damagePotionTurnsLeft = 0;
     private int Gold;
 
+
+    Pet pet;
+
     @Override
-    public String getName() { return "Wizard"; }
+    public String getName() {
+        return "Wizard";
+    }
 
 
     @Override
@@ -80,7 +83,7 @@ public class Wizard extends Character {
         if (house.canUseSword())
             effective_attack_strength *= 1.5;
         if (damagePotionTurnsLeft > 0) {
-            effective_attack_strength += currentDamagePotion.attackImprovement() *house.potionImprovement();
+            effective_attack_strength += currentDamagePotion.attackImprovement() * house.potionImprovement();
             damagePotionTurnsLeft--;
         } else {
             currentDamagePotion = null;
@@ -99,52 +102,41 @@ public class Wizard extends Character {
 
     @Override
     public int defenseFactor() {
-        return (int)(super.defenseFactor() * house.defenseMultiplier());
+        return (int) (super.defenseFactor() * house.defenseMultiplier());
     }
 
 
-    public void maxHealth( ) {
-
+    public void maxHealth() {
         if (getBaseHP() < getCurrentHP()) {
             setCurrentHP(getBaseHP());
         }
     }
 
-
-    public void maxMana( ) {
-
+    public void maxMana() {
         if (manaPool < currentmanaPool) {
             currentmanaPool = manaPool;
         }
-
     }
 
-    public void minMana( ) {
-
+    public void minMana() {
         if (currentmanaPool < 0) {
             currentmanaPool = 0;
         }
-
     }
 
-    public void addHealthPotion(Potion potion)
-    {
+    public void addHealthPotion(Potion potion) {
         healthPotions.add(potion);
     }
 
-    public void addDamagePotion(Potion potion)
-    {
+    public void addDamagePotion(Potion potion) {
         damagePotions.add(potion);
     }
 
-    public void addManaPotion(Potion potion)
-    {
+    public void addManaPotion(Potion potion) {
         manaPotions.add(potion);
     }
 
-    Spell spell = new Spell();
-    public void addSpell(Spell spell)
-    {
+    public void addSpell(Spell spell) {
         wingardiumLeviosa.add(spell);
         expectoPatronum.add(spell);
         accio.add(spell);
@@ -155,49 +147,48 @@ public class Wizard extends Character {
 
     public void useHealthPotion() {
         // use the first available potion in my collection of potions
-        if (healthPotions.size() > 0) {
+        if (!healthPotions.isEmpty()) {
             Potion potion = healthPotions.get(0);
-            int newHP = getCurrentHP();
-            newHP += potion.healthImprovement()*house.potionImprovement();
+            int newHP = getCurrentHP() + (int) (potion.healthImprovement() * house.potionImprovement());
             setCurrentHP(newHP);
             // now remove the used potion
             healthPotions.remove(0);
             maxHealth();
         } else {
-            System.out.println(YELLOW_BOLD_BRIGHT+"You have no health potions left");
+            System.out.println(YELLOW_BOLD_BRIGHT + "You have no health potions left");
         }
     }
 
     public void useManaPotion() {
         // use the first available potion in my collection of potions
-        if (manaPotions.size() > 0) {
+        if (!manaPotions.isEmpty()) {
             Potion potion = manaPotions.get(0);
             currentmanaPool += potion.manaImprovement() * house.potionImprovement();
             // now remove the used potion
             manaPotions.remove(0);
             maxMana();
         } else {
-            System.out.println(YELLOW_BOLD_BRIGHT+" You have no mana potions left ");
+            System.out.println(YELLOW_BOLD_BRIGHT + " You have no mana potions left ");
         }
     }
 
 
     public Potion getAttackPotion() {
-        Potion potion = null;
+        Potion potion;
         if (damagePotions.size() > 0) {
-            potion = damagePotions.get(0);
-            // now remove the used potion
-            damagePotions.remove(0);
+            potion = damagePotions.remove(0);
         } else {
-            System.out.println(YELLOW_BOLD_BRIGHT+"You have no attack boost potions left");
+            System.out.println(YELLOW_BOLD_BRIGHT + "You have no attack boost potions left");
+            potion = null;
         }
+        // return (! damagePotions.isEmpty())?  damagePotions.remove(0) : null;
         return potion;
     }
 
     // return true if potion equipped successfully, false otherwise
     public void equipDamagePotion() {
         if (currentDamagePotion != null) {
-            System.out.println(YELLOW_BOLD_BRIGHT+"A damage potion is already equipped");
+            System.out.println(YELLOW_BOLD_BRIGHT + "A damage potion is already equipped");
             return;
         }
         currentDamagePotion = getAttackPotion();
@@ -212,9 +203,9 @@ public class Wizard extends Character {
 
     public boolean useWingardiumLeviosa(Character target) {
         boolean success = false;
-        if (wingardiumLeviosa.size() > 0 && currentmanaPool > 0 ) {
+        if (wingardiumLeviosa.size() > 0 && currentmanaPool > 0) {
             Spell wingardium = wingardiumLeviosa.get(0);
-            if (target.getName() == "Troll" ) {
+            if (target.getName() == "Troll") {
                 new_HP = target.getCurrentHP() - wingardiumCrit;
             } else {
                 new_HP = target.getCurrentHP() - wingardiumDmg;
@@ -225,9 +216,6 @@ public class Wizard extends Character {
             currentmanaPool -= wingardiumManaUsage;
             wingardiumLeviosa.remove(0);
             success = true;
-
-
-
         }
         minMana();
         return success;
@@ -285,7 +273,7 @@ public class Wizard extends Character {
         if (sectumsempra.size() > 0 && currentmanaPool > 0) {
             Spell sectum = sectumsempra.get(0);
 
-            if (target.getName() == "Basilic") {
+            if ("Basilic".equals(target.getName())) {
                 new_HP = target.getCurrentHP() - sectumsempraDmg;
             } else {
                 new_HP = target.getCurrentHP() - 0;
@@ -328,24 +316,17 @@ public class Wizard extends Character {
         return success;
     }
 
+    private static final String choice[] = {"Snowy owl", "Cat", "Toad", "Rat"};
+    private static final Pet pets[] = {Pet.SNOWY_OWL, Pet.CAT, Pet.TOAD, Pet.RAT};
 
-
-
-    Pet pet;
-
-    private static String choice[] = {"Snowy owl", "Cat", "Toad", "Rat" };
-    private static  Pet pets [] = {Pet.SNOWY_OWL, Pet.CAT, Pet.TOAD, Pet.RAT};
-    public void Pet(){
+    public void Pet() {
         Scanner scanner = new Scanner(System.in);
         String newLine = System.getProperty("line.separator");
-        String instructions = newLine + CYAN_BOLD_BRIGHT +"Choose your pet" +RESET;
+        String instructions = newLine + CYAN_BOLD_BRIGHT + "Choose your pet" + RESET;
         InputReader qualityReader = new InputReader(instructions, choice);
         int playerChoice = qualityReader.readInputByNumber();
         int index = playerChoice - 1;
-        pet = pets[index];
+        this.pet = pets[index];
         System.out.println("A " + pet.name().toLowerCase().replace("_", " ") + " will accompany you.");
     }
-
-
-
 }

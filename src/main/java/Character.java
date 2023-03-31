@@ -14,9 +14,10 @@ public abstract class Character {
     private int attack_strength;
     private String name;
 
-    /** the character attacks the given target */
-    public void attack(Character target)
-    {
+    /**
+     * the character attacks the given target
+     */
+    public void attack(Character target) {
         int damage = damageInflicted();
 
         if (target.isDefending) {
@@ -35,18 +36,30 @@ public abstract class Character {
     }
 
     private boolean isDefending;
+
     public void defend() {
         isDefending = true;
     }
+
     public void stopDefending() {
         isDefending = false;
     }
-    /** how much damage can the character inflict when attacking a target */
+
+    /**
+     * how much damage can the character inflict when attacking a target
+     */
     public abstract int damageInflicted();
 
     /* value by which we divide the inflicted damage by */
-    public int defenseFactor() { return 2; }
+    public int defenseFactor() {
+        return 2;
+    }
 
-    public boolean isAlive() { return currentHP > 0; }
-    public boolean isDead() { return !isAlive(); }
+    public boolean isAlive() {
+        return currentHP > 0;
+    }
+
+    public boolean isDead() {
+        return !isAlive();
+    }
 }

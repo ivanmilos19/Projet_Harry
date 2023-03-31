@@ -5,8 +5,7 @@ public class InputReaderWithNoop extends InputReader {
 
     int lastUserChoice = 0;
 
-    public boolean noopChosen()
-    {
+    public boolean noopChosen() {
         // last choice is always "Never mind" - was this what user selected in the last input ?
         return lastUserChoice == getNumberOfValidChoices();
     }

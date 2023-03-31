@@ -1,5 +1,7 @@
 public class Ravenclaw extends House {
-    public String getName() { return "Ravenclaw"; }
+    public String getName() {
+        return "Ravenclaw";
+    }
 
     @Override
     public double precision() {

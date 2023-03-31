@@ -1,5 +1,7 @@
 import lombok.Data;
+
 import java.util.Arrays;
+
 @Data
 public class SortingHat {
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";  // CYAN
@@ -21,7 +23,7 @@ public class SortingHat {
 
     public SortingHat() {
         String newLine = System.getProperty("line.separator");
-        String instructions = newLine + CYAN_BOLD_BRIGHT +"Welcome to Hogwarts ! The sorting hat will choose which house you will belong to. If you could describe yourself in one word which of the following qualities would you choose ?" +RESET;
+        String instructions = newLine + CYAN_BOLD_BRIGHT + "Welcome to Hogwarts ! The sorting hat will choose which house you will belong to. If you could describe yourself in one word which of the following qualities would you choose ?" + RESET;
         InputReader qualityReader = new InputReader(instructions, qualities);
         int choice = qualityReader.readInputByNumber();
         String quality = qualities[choice - 1];
@@ -31,8 +33,7 @@ public class SortingHat {
         if (houseName == "Gryffindor") {
             house = new Gryffindor();
             System.out.println("Your defense is higher.");
-        }
-        else if (houseName == "Ravenclaw") {
+        } else if (houseName == "Ravenclaw") {
             house = new Ravenclaw();
             System.out.println("Your basic spell accuracy is higher.");
         } else if (houseName == "Hufflepuff") {

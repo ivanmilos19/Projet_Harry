@@ -1,28 +1,29 @@
 import lombok.Data;
+
 import java.util.Scanner;
 import java.util.Arrays;
-@Data
+
 public class InputReader {
-    String instructions;
-    private String validChoices[];
-    public InputReader(String instructions, String[] validChoices){
+
+    private final String instructions;
+    private final String[] validChoices;
+
+    public InputReader(String instructions, String[] validChoices) {
         this.instructions = instructions;
         this.validChoices = validChoices;
     }
 
-    public int getNumberOfValidChoices()
-    {
+    public int getNumberOfValidChoices() {
         return validChoices.length;
     }
-    private boolean isPlayerChoiceValid(String playerChoice)
-    {
+
+    private boolean isPlayerChoiceValid(String playerChoice) {
         return Arrays.asList(validChoices).contains(playerChoice);
     }
 
-    public void showValidOptions()
-    {
+    public void showValidOptions() {
         for (int i = 0; i < validChoices.length; i++) {
-            System.out.println((i+1) + ": " + validChoices[i]);
+            System.out.println((i + 1) + ": " + validChoices[i]);
         }
     }
 
@@ -40,7 +41,7 @@ public class InputReader {
             System.out.println(newLine + "⚠️ Please write only one of the available options");
             showValidOptions();
         } while (true);
-        return  playerChoice;
+        return playerChoice;
 
     }
 
@@ -64,7 +65,7 @@ public class InputReader {
             System.out.println(newLine + "⚠️ Please write only one of the available options");
             showValidOptions();
         } while (true);
-        return  playerChoice;
+        return playerChoice;
 
     }
 }

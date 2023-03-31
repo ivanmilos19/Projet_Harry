@@ -13,7 +13,7 @@ public class LevelBasilic {
     String newLine = System.getProperty("line.separator");
     Scanner scanner = new Scanner(System.in);
 
-    
+
     public void battle(Wizard wizard, Boss basilic) {
         int playerChoice = 0;
         while (true) {
@@ -24,21 +24,19 @@ public class LevelBasilic {
             }
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
-                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |   " + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
                     + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
-                    + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
-                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" +newLine + newLine);
+                    + WHITE_BOLD_BRIGHT + "  |   " + PURPLE_BOLD_BRIGHT + "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
+                    + WHITE_BOLD_BRIGHT + "  |   " + "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
             System.out.print(RED_BOLD_BRIGHT + basilic.getName() + ": " + basilic.getCurrentHP() + "/" + basilic.getBaseHP() + " ❤" + newLine);
-
 
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{attack_action, "Defend", "Potion", "Spell"})).readInputByNumber();
 
             if (playerChoice == 1) { // Attack
                 wizard.attack(basilic);
-            }
-            else if (playerChoice == 2) { // Defend
+            } else if (playerChoice == 2) { // Defend
                 wizard.defend();
             } else if (playerChoice == 3) { // Potion
 
@@ -64,7 +62,7 @@ public class LevelBasilic {
                 }
 
             } else if (playerChoice == 4) { // Spell
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
                         + wizard.getWingardiumLeviosa().size() + " remaining", "Accio | x"
                         + wizard.getAccio().size() + " remaining"});
 
@@ -74,7 +72,7 @@ public class LevelBasilic {
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
                     boolean success = wizard.useWingardiumLeviosa(basilic);
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
                     }
@@ -116,7 +114,7 @@ public class LevelBasilic {
 
         }
 
-        Rewards rewards  = new Rewards();
+        Rewards rewards = new Rewards();
         rewards.getRewards(wizard);
 
         Shop shop = new Shop();

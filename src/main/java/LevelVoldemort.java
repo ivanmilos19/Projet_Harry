@@ -18,7 +18,6 @@ public class LevelVoldemort {
     Scanner scanner = new Scanner(System.in);
 
 
-
     public void battle(Wizard wizard, ArrayList<Boss> bosses) {
         int playerChoice;
 
@@ -28,20 +27,20 @@ public class LevelVoldemort {
 
             String[] enemy_names = new String[bosses.size()];
             int i = 0;
-            for (Boss boss: bosses) {
+            for (Boss boss : bosses) {
                 enemy_names[i++] = boss.getName();
             }
 
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
-                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |   " + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
                     + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
-                    + WHITE_BOLD_BRIGHT  + "  |   " + PURPLE_BOLD_BRIGHT +  "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
-                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
+                    + WHITE_BOLD_BRIGHT + "  |   " + PURPLE_BOLD_BRIGHT + "Accuracy: " + wizard.getAccuracy() + " \uD83C\uDFAF"
+                    + WHITE_BOLD_BRIGHT + "  |   " + "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
             for (Boss boss : bosses) {
-                System.out.print(RED_BOLD_BRIGHT + boss.getName() + ": " + boss.getCurrentHP() + "/" + boss.getBaseHP() + " ❤" + newLine );
+                System.out.print(RED_BOLD_BRIGHT + boss.getName() + ": " + boss.getCurrentHP() + "/" + boss.getBaseHP() + " ❤" + newLine);
             }
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Basic spell", "Defend", "Potion", "Spell"})).readInputByNumber();
@@ -57,8 +56,7 @@ public class LevelVoldemort {
 
                 wizard.attack(bosses.get(target_enemy - 1));
 
-            }
-            else if (playerChoice == 2) { // Defend
+            } else if (playerChoice == 2) { // Defend
                 wizard.defend();
             } else if (playerChoice == 3) { // Potion
 
@@ -85,11 +83,10 @@ public class LevelVoldemort {
                 }
 
 
-
             } else if (playerChoice == 4) { // Spell
 
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
-                        + wizard.getWingardiumLeviosa().size() + " remaining","Accio | x"
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                        + wizard.getWingardiumLeviosa().size() + " remaining", "Accio | x"
                         + wizard.getAccio().size() + " remaining", "Expecto Patronum | x"
                         + wizard.getExpectoPatronum().size() + " remaining", "Sectumsempra | x"
                         + wizard.getSectumsempra().size() + " remaining", "Expelliarmus | x"
@@ -107,7 +104,7 @@ public class LevelVoldemort {
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
                     boolean success = wizard.useWingardiumLeviosa(bosses.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
                     }
@@ -115,27 +112,27 @@ public class LevelVoldemort {
 
                 } else if (playerChoice == 2) {
                     boolean success = wizard.useAccio(bosses.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast accio  no more");
                         continue;
                     }
 
                 } else if (playerChoice == 3) {
                     boolean success = wizard.useExpecto(bosses.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast expecto patronum no more");
                         continue;
                     }
 
                 } else if (playerChoice == 4) {
                     boolean success = wizard.useSectumsempra(bosses.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast sectumsempra no more");
                         continue;
                     }
                 } else if (playerChoice == 5) {
                     boolean success = wizard.useExpelliarmus(bosses.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast expelliarmus no more");
                         continue;
                     }
@@ -145,33 +142,31 @@ public class LevelVoldemort {
             }
 
             boolean allFoesDead = true;
-            for (Boss boss: bosses) {
+            for (Boss boss : bosses) {
                 allFoesDead = allFoesDead && boss.isDead();
             }
 
             if (allFoesDead) {
                 System.out.println(GREEN_BOLD_BRIGHT + newLine + "Foes defeated !");
-                System.out.println(CYAN_BOLD_BRIGHT+ "Congratulations ! You have defeated the Dark Lord and his minions! The wizarding world is at peace now.");
+                System.out.println(CYAN_BOLD_BRIGHT + "Congratulations ! You have defeated the Dark Lord and his minions! The wizarding world is at peace now.");
                 break;
             }
 
 
-
-
-            for (Boss boss: bosses) {
-                    if (boss.isAlive() && !successExpelliarmus) {
-                        if (boss.canUseAvada()) {
-                            boss.attack(wizard);
-                            System.out.println(RED_BOLD_BRIGHT+"Voldemort has cursed you. You stood no chance against the Dark Lord...");
-                        } else {
-                            boss.attack(wizard);
-                        }
+            for (Boss boss : bosses) {
+                if (boss.isAlive() && !successExpelliarmus) {
+                    if (boss.canUseAvada()) {
+                        boss.attack(wizard);
+                        System.out.println(RED_BOLD_BRIGHT + "Voldemort has cursed you. You stood no chance against the Dark Lord...");
+                    } else {
+                        boss.attack(wizard);
                     }
+                }
 
-                    if (successExpelliarmus && wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
-                        System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores! Health restored. ");
-                        wizard.setCurrentHP(wizard.getBaseHP());
-                    }
+                if (successExpelliarmus && wizard.getWand().getCore() == Core.PHOENIX_FEATHER) {
+                    System.out.println(CYAN_BOLD_BRIGHT + "You both have phoenix feather cores! Health restored. ");
+                    wizard.setCurrentHP(wizard.getBaseHP());
+                }
                 boss.resetUseAvada();
             }
 
@@ -190,7 +185,7 @@ public class LevelVoldemort {
             System.out.println(WHITE_BOLD_BRIGHT + "--------------------------------------------------");
 
 
-            for (Boss boss: bosses) {
+            for (Boss boss : bosses) {
                 if (boss.getName() == "Voldemort" && boss.isAlive()) {
                     boss.RandomUseAvada();
                 }

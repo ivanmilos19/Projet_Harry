@@ -1,5 +1,7 @@
 public class Slytherin extends House {
-    public String getName() { return "Hufflepuff"; }
+    public String getName() {
+        return "Hufflepuff";
+    }
 
     @Override
     public double attackMultiplier() {
@@ -7,5 +9,7 @@ public class Slytherin extends House {
     }
 
     @Override
-    public boolean canJoinEnemy() { return true; }
+    public boolean canJoinEnemy() {
+        return true;
+    }
 }

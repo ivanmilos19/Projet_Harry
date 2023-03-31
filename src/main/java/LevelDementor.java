@@ -24,18 +24,18 @@ public class LevelDementor {
 
             String[] enemy_names = new String[dementors.size()];
             int i = 0;
-            for (Enemy dementor: dementors) {
+            for (Enemy dementor : dementors) {
                 enemy_names[i++] = dementor.getName();
             }
 
             System.out.print(GREEN_BOLD_BRIGHT + newLine + "Wizard HP: " + wizard.getCurrentHP() + "/" + wizard.getBaseHP() + " ❤"
-                    + WHITE_BOLD_BRIGHT  + "  |   " +  BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
+                    + WHITE_BOLD_BRIGHT + "  |   " + BLUE_BOLD_BRIGHT + "Mana: " + wizard.getCurrentmanaPool() + "/" + wizard.getManaPool() + " \uD83D\uDCA7"
                     + WHITE_BOLD_BRIGHT + "  |  " + YELLOW_BOLD_BRIGHT + "Wizard attack: " + wizard.getAttack_strength() + " \uD83D\uDCA5"
-                    + WHITE_BOLD_BRIGHT  + "  |   "  +  "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
+                    + WHITE_BOLD_BRIGHT + "  |   " + "Level: " + wizard.getLevel() + " ⭐" + newLine + newLine);
 
 
-            for (Enemy dementor: dementors) {
-                System.out.print(RED_BOLD_BRIGHT + dementor.getName() + ": " + dementor.getCurrentHP() + "/" + dementor.getBaseHP() + " ❤" + newLine );
+            for (Enemy dementor : dementors) {
+                System.out.print(RED_BOLD_BRIGHT + dementor.getName() + ": " + dementor.getCurrentHP() + "/" + dementor.getBaseHP() + " ❤" + newLine);
             }
 
             playerChoice = (new InputReader(RESET + newLine + "Choose an action:" + newLine, new String[]{"Basic spell", "Defend", "Inventory", "Spell"})).readInputByNumber();
@@ -51,8 +51,7 @@ public class LevelDementor {
 
                 wizard.attack(dementors.get(target_enemy - 1));
 
-            }
-            else if (playerChoice == 2) { // Defend
+            } else if (playerChoice == 2) { // Defend
                 wizard.defend();
             } else if (playerChoice == 3) { // Potion
 
@@ -78,8 +77,8 @@ public class LevelDementor {
                 }
 
             } else if (playerChoice == 4) { // Spell
-                InputReaderWithNoop reader = new InputReaderWithNoop(RESET +newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
-                        + wizard.getWingardiumLeviosa().size() + " remaining","Accio | x"
+                InputReaderWithNoop reader = new InputReaderWithNoop(RESET + newLine + "Choose which spell to cast !" + newLine, new String[]{"Wingardium leviosa | x"
+                        + wizard.getWingardiumLeviosa().size() + " remaining", "Accio | x"
                         + wizard.getAccio().size() + " remaining", "Expecto Patronum | x"
                         + wizard.getExpectoPatronum().size() + " remaining"});
                 playerChoice = reader.readInputByNumber();
@@ -95,7 +94,7 @@ public class LevelDementor {
 
                 if (playerChoice == 1) { // "Wingardium leviosa"
                     boolean success = wizard.useWingardiumLeviosa(dementors.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast wingardium leviosa no more");
                         continue;
                     }
@@ -103,24 +102,24 @@ public class LevelDementor {
 
                 } else if (playerChoice == 2) {
                     boolean success = wizard.useAccio(dementors.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast accio  no more");
                         continue;
                     }
 
                 } else if (playerChoice == 3) {
                     boolean success = wizard.useExpecto(dementors.get(target_enemy - 1));
-                    if (!success){
+                    if (!success) {
                         System.out.println("can't cast expecto patronum no more");
                         continue;
                     }
-                    System.out.println( BLUE_BOLD_BRIGHT + "Your patronus has repelled a dementor !");
+                    System.out.println(BLUE_BOLD_BRIGHT + "Your patronus has repelled a dementor !");
                 }
             }
 
 
             boolean allFoesDead = true;
-            for (Enemy dementor: dementors) {
+            for (Enemy dementor : dementors) {
                 allFoesDead = allFoesDead && dementor.isDead();
             }
 
@@ -130,7 +129,7 @@ public class LevelDementor {
             }
 
             // now the protagonist is attacked
-            for (Enemy dementor: dementors) {
+            for (Enemy dementor : dementors) {
                 if (dementor.isAlive())
                     dementor.attack(wizard);
 
