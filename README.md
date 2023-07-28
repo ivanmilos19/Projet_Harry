@@ -1,5 +1,4 @@
 # Projet_Harry
-Ivan Milosavljevic
 
 
 About the game:
